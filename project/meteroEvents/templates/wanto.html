@@ -1,0 +1,45 @@
+
+{% block headerinclude %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+{% endblock headerinclude %}
+
+{% block footerinclude %}
+ 
+  
+
+{% endblock footerinclude %}
+
+{% block content %}
+    <div class="main">
+        <div class="container">
+            
+
+                <div class="signup-form" style="padding-right:55px; padding-top: 40px;">
+                <form id="form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                        <h2>User Registration</h2>
+      
+
+                <div class="inputBox">
+                           <label>First Name<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                            <input type="text" name="firstname" class="borderInvalid" id="firstname" placeholder="FirstName">
+                             <label>Zip code<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                            <input type="number" name="zipcode" class="borderInvalid" id="zipcode" placeholder="Fzipcode">
+                                  
+               </div>
+
+                <center>
+                   
+                    <button type="submit" class="btn btn-primary" style="background-color: #3498DB; color: white; border: none; font-family: 'Montserrat'; font-size: 20px;">Submit</button>
+                </center>    
+            </form>
+                </div>
+        
+        </div>
+    </div>
+{% endblock content %}
