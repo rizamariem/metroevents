@@ -13,7 +13,6 @@ class FeedIndexView(View):
 		form = UserForm(request.POST, request.FILES)		
 	
 		if form.is_valid():
-		
 			usern = request.POST.get("username")
 			pword = request.POST.get("pword")
 			fname = request.POST.get("firstName")
