@@ -42,19 +42,29 @@ class Notification(models.Model):
 
 class Organizers(models.Model):
 	user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
-	organizer_id = models.IntegerField()
+	
 
 	class Meta:
 		db_table = "Organizers"
 
 class Participants(models.Model):
-	user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
 	event_id = models.ForeignKey('Events', on_delete=models.CASCADE)
-	participants_id = models.IntegerField()
+	participant_id = models.ForeignKey('Users', on_delete=models.CASCADE)
+	#participants_id = models.ForeignKey('Users', on_delete=models.CASCADE)
 	registered_date = models.DateField(auto_now=True)
 
 	class Meta:
 		db_table = "Participants"
+
+class Requests(models.Model):
+	
+	user = models.ForeignKey('Users', on_delete=models.CASCADE)
+	req_type = models.IntegerField()
+	role = models.IntegerField(default = 0)
+	description = models.CharField(max_length = 100)
+
+	class Meta:
+		db_table = "Requests"
 
 class Requesttoadmin(models.Model):
 	user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
@@ -102,3 +112,5 @@ class Users(models.Model):
 
 	class Meta:
 		db_table = "Users"
+
+

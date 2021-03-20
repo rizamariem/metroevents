@@ -38,3 +38,9 @@ class FeedIndexView(View):
 		else:
 			print(form.errors)
 			return HttpResponse('Not Valid')
+
+
+
+class UserLogRegView(View):
+	def get(self, request):
+		oten
