@@ -22,15 +22,48 @@
                 <form id="form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
                     {% csrf_token %}
 
-                        <h2>User Registration</h2>
-      
+                <h2>User Registration</h2>
 
                 <div class="inputBox">
-                           <label>First Name<abbr title="This field is mandatory" aria-label="required"></abbr></label>
-                            <input type="text" name="firstname" class="borderInvalid" id="firstname" placeholder="FirstName">
-                             <label>Zip code<abbr title="This field is mandatory" aria-label="required"></abbr></label>
-                            <input type="number" name="zipcode" class="borderInvalid" id="zipcode" placeholder="Fzipcode">
-                                  
+                        <label>Username<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="username" class="borderInvalid" placeholder="Username">
+                        <br>
+
+                        <label>Password<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="pword" class="borderInvalid" placeholder="Password">
+                        <br>
+
+                        <label>First Name<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="firstName" class="borderInvalid" placeholder="First Name">
+                        <br>
+
+                        <label>Last Name<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="lastName" class="borderInvalid" placeholder="Last Name">
+                        <br>
+
+                        <label>Email<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="email" class="borderInvalid" placeholder="Email">
+                        <br>
+
+                        <label>Mobile Number<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="mobileNum" class="borderInvalid" placeholder="Mobile Number">
+                        <br>
+
+                        <label>Country<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="country" class="borderInvalid" placeholder="Country">
+                        <br>
+
+                        <label>Province<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="province" class="borderInvalid" placeholder="Province">
+                        <br>
+
+                        <label>City<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="city" class="borderInvalid" placeholder="City">
+                        <br>
+
+                        <label>Street<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="street" class="borderInvalid" placeholder="Street">
+                        <br>               
                </div>
 
                 <center>
