@@ -2,53 +2,76 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.http import HttpResponse
-from .forms import UserForm
+from .forms import loginForm, registerForm
 from .models import *
 
 class FeedIndexView(View):
-	def get(self, request):
 
+	def get(self, request):
  		events = Events.objects.all()
  		participants = Participants.objects.all()
  		context = {
  			'events': events,	
  		}
- 		return render(request,'dashboard/frontEnd/table1/index2.html', context )
+ 		return render(request,'feed.html', context )
 	
 
 
 
-class UserLogRegView(View):
+class login(View):
 	def get(self,request):
-		return render(request, 'wanto.html')
+		return render(request, 'login.html')
 
 	def post(self, request):
- 		form = UserForm(request.POST, request.FILES)
+ 		form = loginForm(request.POST, request.FILES)
  		if form.is_valid():
  			usern = request.POST.get("username")
- 			pword = request.POST.get("pword")
- 			fname = request.POST.get("firstName")
- 			lname = request.POST.get("lastName")
- 			email = request.POST.get("email")
- 			mn = request.POST.get("mobileNum")
- 			country = request.POST.get("country")
- 			pro = request.POST.get("province")
- 			city = request.POST.get("city")
- 			st = request.POST.get("street")
+ 			password = request.POST.get("password")
+ 			
 
- 			form = Users( username = usern, pword = pword, firstName = fname, lastName = lname, email = email, mobileNum = mn,
-						country = country, province = pro, city = city, street = st)
+ 			if bool(Users.objects.filter(username = usern, pword = password)) == True:
+ 				return HttpResponse(' Valid')
+ 			else:
+ 				return HttpResponse('Not Valid')
+ 			#form.save()
 
- 			form.save()
-
- 			return render(request,'wanto.html')
- 		else:
- 			print(form.errors)
- 			return HttpResponse('Not Valid')
+ 			#return render(request,'login.html')
+ 		#else:
+ 			#print(form.errors)
+ 			#return HttpResponse('Not Valid')
+	
 
 			#return HttpResponse('Medicine Record Saved!')			
 			#return render(request,'index.html')
 			
 			# except:
 			# 	raise Http404
-		
+	
+class register(View):
+	def get(self, request):
+		return render(request,'register.html')
+
+	def post(self, request):
+ 		form = registerForm(request.POST, request.FILES)
+ 		if form.is_valid():
+ 			usern = request.POST.get("username")
+ 			pword = request.POST.get("password")
+ 			fname = request.POST.get("firstname")
+ 			print(fname)
+ 			lname = request.POST.get("lastname")
+ 			mn = request.POST.get("number")
+ 			gender = request.POST.get("gender")
+ 			country = request.POST.get("country")
+ 			pro = request.POST.get("province")
+ 			city = request.POST.get("city")
+ 			st = request.POST.get("street")
+
+ 			form = Users( username = usern, pword = pword, firstName = fname, lastName = lname, mobileNum = mn,
+						country = country, province = pro, city = city, street = st)
+
+ 			form.save()
+
+ 			return redirect('metroE:login')
+ 		else:
+ 			print(form.errors)
+ 			return HttpResponse('Not Valid')

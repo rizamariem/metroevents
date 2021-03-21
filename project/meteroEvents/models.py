@@ -104,12 +104,13 @@ class Users(models.Model):
 	pword = models.CharField(max_length = 50)
 	firstName = models.CharField(max_length = 50)
 	lastName = models.CharField(max_length = 50)
-	email = models.CharField(max_length = 50)
-	mobileNum = models.IntegerField()
+	gender = models.CharField(max_length = 5, default = 'Male')
+	mobileNum = models.DecimalField(max_digits= 15, decimal_places = 0)
 	country = models.CharField(max_length = 50)
 	province = models.CharField(max_length = 50)
 	city = models.CharField(max_length = 50)
 	street = models.CharField(max_length = 50)
+	role = models.IntegerField( default = 1)
 
 	class Meta:
 		db_table = "Users"
