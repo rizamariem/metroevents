@@ -10,8 +10,11 @@ class FeedIndexView(View):
 	def get(self, request):
  		events = Events.objects.all()
  		participants = Participants.objects.all()
+ 		users = Users.object.all()
  		context = {
- 			'events': events,	
+ 			'events': events,
+ 			'participants': participants,
+ 			'users': users	
  		}
  		return render(request,'feed.html', context )
 	
@@ -20,7 +23,10 @@ class FeedIndexView(View):
 
 class login(View):
 	def get(self,request):
-		return render(request, 'login.html')
+		events = Events.objects.all()
+		participants = Participants.objects.all()
+		return render(request,'login.html')
+ 		
 
 	def post(self, request):
  		form = loginForm(request.POST, request.FILES)
@@ -30,6 +36,7 @@ class login(View):
  			
 
  			if bool(Users.objects.filter(username = usern, pword = password)) == True:
+ 				#users =Users.objects.filter(firstName = 'Yanni').delete()
  				return HttpResponse(' Valid')
  			else:
  				return HttpResponse('Not Valid')
@@ -66,12 +73,18 @@ class register(View):
  			city = request.POST.get("city")
  			st = request.POST.get("street")
 
- 			form = Users( username = usern, pword = pword, firstName = fname, lastName = lname, mobileNum = mn,
+ 			a = bool(Users.objects.filter(username = usern, pword = pword, firstName = fname, lastName = lname, mobileNum = mn,
+						country = country, province = pro, city = city, street = st))
+ 				
+ 			if(a == True):
+ 				return HttpResponse('Account already exist')
+ 			else:
+ 				form = Users(username = usern, pword = pword, firstName = fname, lastName = lname, mobileNum = mn,
 						country = country, province = pro, city = city, street = st)
-
- 			form.save()
-
- 			return redirect('metroE:login')
+ 				form.save()
+ 				return redirect('meteroEvents:login')
+ 				
+ 		
  		else:
  			print(form.errors)
  			return HttpResponse('Not Valid')

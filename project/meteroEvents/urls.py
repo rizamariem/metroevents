@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'metroE'
+app_name = 'meteroEvents'
 urlpatterns = [
 	path('', views.FeedIndexView.as_view(), name="feed_index_view"),
 	path('login', views.login.as_view(), name = "login"),
