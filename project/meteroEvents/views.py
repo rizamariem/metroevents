@@ -7,40 +7,48 @@ from .models import *
 
 class FeedIndexView(View):
 	def get(self, request):
-		return render(request, 'wanto.html')
 
-	def post(self, request):		
-		form = UserForm(request.POST, request.FILES)		
+ 		events = Events.objects.all()
+ 		participants = Participants.objects.all()
+ 		context = {
+ 			'events': events,	
+ 		}
+ 		return render(request,'dashboard/frontEnd/table1/index2.html', context )
 	
-		if form.is_valid():
-			usern = request.POST.get("username")
-			pword = request.POST.get("pword")
-			fname = request.POST.get("firstName")
-			lname = request.POST.get("lastName")
-			email = request.POST.get("email")
-			mn = request.POST.get("mobileNum")
-			country = request.POST.get("country")
-			pro = request.POST.get("province")
-			city = request.POST.get("city")
-			st = request.POST.get("street")
-
-
-			form = Users( username = usern, pword = pword, firstName = fname, lastName = lname, email = email, mobileNum = mn,
-						country = country, province = pro, city = city, street = st)
-
-			form.save()
-
-			#return HttpResponse('Medicine Record Saved!')			
-			#return render(request,'index.html')
-			return render(request,'wanto.html')
-			# except:
-			# 	raise Http404
-		else:
-			print(form.errors)
-			return HttpResponse('Not Valid')
 
 
 
 class UserLogRegView(View):
-	def get(self, request):
-		oten
+	def get(self,request):
+		return render(request, 'wanto.html')
+
+	def post(self, request):
+ 		form = UserForm(request.POST, request.FILES)
+ 		if form.is_valid():
+ 			usern = request.POST.get("username")
+ 			pword = request.POST.get("pword")
+ 			fname = request.POST.get("firstName")
+ 			lname = request.POST.get("lastName")
+ 			email = request.POST.get("email")
+ 			mn = request.POST.get("mobileNum")
+ 			country = request.POST.get("country")
+ 			pro = request.POST.get("province")
+ 			city = request.POST.get("city")
+ 			st = request.POST.get("street")
+
+ 			form = Users( username = usern, pword = pword, firstName = fname, lastName = lname, email = email, mobileNum = mn,
+						country = country, province = pro, city = city, street = st)
+
+ 			form.save()
+
+ 			return render(request,'wanto.html')
+ 		else:
+ 			print(form.errors)
+ 			return HttpResponse('Not Valid')
+
+			#return HttpResponse('Medicine Record Saved!')			
+			#return render(request,'index.html')
+			
+			# except:
+			# 	raise Http404
+		

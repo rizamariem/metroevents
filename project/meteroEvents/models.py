@@ -42,7 +42,7 @@ class Notification(models.Model):
 
 class Organizers(models.Model):
 	user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
-	
+	registered_date = models.DateField(auto_now=True)
 
 	class Meta:
 		db_table = "Organizers"
@@ -62,6 +62,7 @@ class Requests(models.Model):
 	req_type = models.IntegerField()
 	role = models.IntegerField(default = 0)
 	description = models.CharField(max_length = 100)
+	req_date = models.DateField(auto_now=True)
 
 	class Meta:
 		db_table = "Requests"
