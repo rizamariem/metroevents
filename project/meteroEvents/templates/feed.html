@@ -1,5 +1,6 @@
  {% load static %}
 {% block headerinclude %}
+
     <!DOCTYPE html>
     <html lang="en">
     <meta charset="UTF-8">
@@ -29,6 +30,7 @@
 
 {% block content %}
 <body>
+
 <div class="container">
 <div class="profile-page tx-13">
     <div class="row">
@@ -39,7 +41,7 @@
                         <li class="header-link-item d-flex align-items-center active">
                             <a class="pt-1px d-none d-md-block" href="{% url 'metroE:feed' %}" style="padding-right: 5px;">Metro Events</a>
                         </li>
-
+                        <li style="width: 650px"></li>
                         <li class="header-link-item d-flex align-items-center">
                             <input type="search" id="site-search">
                             <button class="btnSearch"><i class="fa fa-search" aria-hidden="true" style="color:white;"></i></button>
@@ -88,31 +90,35 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm mr-2">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                         <circle cx="12" cy="12" r="3"></circle>
-                                    </svg> <span class="">View all</span></a>
+                                    <a></a></svg> <span class="">View all</span></a>
                             </div>
                         </div>
                     </div>
-                    <p>Hi! My name is chuchu.</p>
+                    {% for user in user_info %}
+                    <p>{{user.firstname}}  {{user.lastname}}</p>
+                   
                     <div class="mt-3">
-                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Joined:</label>
-                        <p class="text-muted">March 22, 2021</p>
+                        <label class="tx-11 font-weight-bold mb-0 ">Joined:</label>
+                        <p class="text-muted">{{user.date_registered}} </p>
                     </div>
                     <div class="mt-3">
-                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Lives:</label>
-                        <p class="text-muted">Talisay, Cebu City</p>
+                        <label class="tx-11 font-weight-bold mb-0 ">Location:</label>
+                        <p class="text-muted">{{user.street}}, {{user.city}}</p>
                     </div>
                     <div class="mt-3">
-                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Email:</label>
-                        <p class="text-muted">me@gmail.com</p>
+                        <label class="tx-11 font-weight-bold mb-0t">Contact number:</label>
+                        <p class="text-muted">{{user.mobile}}</p>
                     </div>
                     <div class="mt-3">
-                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Website:</label>
-                        <p class="text-muted">www.mememe.com</p>
+                        <label class="tx-11 font-weight-bold mb-0 ">Role:</label>
+                         {% if user.role == 1 %}
+                        <p class="text-muted">user</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-
+ {% endfor %}
 
         <!-- left wrapper end -->
         <!-- middle wrapper start -->
@@ -124,22 +130,34 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <div class="ml-2">
-                                        <p><b>Art Exhibition</b></p>
+                                        
                                         <!--<p class="tx-11 text-muted">1 min ago</p>-->
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                     
                         <div class="card-body">
+                            <p><b>Art Exhibition</b></p>
                             <img class="img-fluid" src="{% static 'images/event1.jpg' %}"> 
-                            <p class="mb-3 tx-14">
-                            <p class="mb-3 tx-14"><b>Event:</b> Art Exhibition</p>
-                            <p class="mb-3 tx-14"><b>Host:</b> hARTken</p>
-                            <p class="mb-3 tx-14"><b>Date:</b> November 10, 2021</p>
-                            <p class="mb-3 tx-14"><b>Time:</b> 8:00AM - 11:00 AM</p>
-                        </div>
+                           <!-- <img src="{{customer.profilePicture.url}}" width="196px" height="212px" style="border-radius: 8px;
+              border: 1px solid #ddd; padding: 5px; margin-top: 3%; margin-left: 3%;">--> 
+                         
+{% for event in events %}                            <p class="mb-3 tx-14">
+@{
 
+var db = Database.Open("me"); 
+var query = "SELECT firstname,lastname FROM users WHERE users.id = event.id AND organizers.id = event.id; 
+}
+@foreach(var row in db.Query(query))
+{
+     <p class="mb-3 tx-14" >@row.firstname @row.lastname</p>
+}
+                           
+                            <p class="mb-3 tx-14"><b>Start:</b> November 10, 2021</p>
+                            <p class="mb-3 tx-14" style ="margin-top: -8%; margin-left: 60%"><b>End:</b> 8:00AM - 11:00 AM</p>
+                        </div>
+                       
 
                         <div class="card-footer">
                             <div class="d-flex post-actions">
@@ -159,46 +177,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="card rounded">
-                        <div class="card-header">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <div class="ml-2">
-                                        <p><b>Indie Music Fest</b></p>
-                                        <!--<p class="tx-11 text-muted">1 min ago</p>-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="card-body">
-                            <img class="img-fluid" src="{% static 'images/event3.jpg' %}"> 
-                            <p class="mb-3 tx-14">
-                            <p class="mb-3 tx-14"><b>Event:</b> Indie Music Fest</p>
-                            <p class="mb-3 tx-14"><b>Host:</b> Furbabyfur</p>
-                            <p class="mb-3 tx-14"><b>Date:</b> March 27, 2021</p>
-                            <p class="mb-3 tx-14"><b>Time:</b> 8:00PM - 10:00 PM</p>
-                        </div>
-
-                        <div class="card-footer">
-                            <div class="d-flex post-actions">
-                                <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
-                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                    </svg>
-                                    <p class="d-none d-md-block ml-2">Upvote</p>
-                                </a>
-
-                                <a>
-                                    <p class="d-none d-md-block ml-2"><button type="button" class="btnEvent" style="background-color:#FF5733; border: none; color: white; border-radius: 5px;">+ Join Event</button></p>
-                                </a>
-                            </div>
-                        </div>                    
-                    </div>
-                </div>
-
+                
                 <div class="col-md-12">
                     <br>
                 </div>
@@ -206,7 +185,7 @@
             </div>
         </div>
 
-
+{% endfor%}
         <!-- middle wrapper end -->
         <!-- right wrapper start -->
         <div class="d-none d-xl-block col-xl-3 right-wrapper">

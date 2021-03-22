@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -79,12 +79,18 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
      'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'me',
-         'USER': 'mEvents@group4-1',
-         'PASSWORD': 'Qwerty123',
-         'HOST': 'group4-1.mysql.database.azure.com',
-         'PORT': '3306',
+        # 'ENGINE': 'django.db.backends.mysql',
+       #  'NAME': 'me',
+        # 'USER': 'mEvents@group4-1', # erver adlimin login name
+        # 'PASSWORD': 'Qwerty123',
+        # 'HOST': 'group4-1.mysql.database.azure.com',
+        # 'PORT': '3306',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'metro',
+        'USER': 'root',
+        'Password': 'root',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
          'OPTIONS': {
              'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
              'ssl': True
@@ -132,5 +138,6 @@ CORS_ALLOW_CREDENTIALS = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 

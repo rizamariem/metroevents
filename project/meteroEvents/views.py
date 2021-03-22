@@ -5,21 +5,6 @@ from django.http import HttpResponse
 from .forms import loginForm, registerForm
 from .models import *
 
-class FeedIndexView(View):
-
-	def get(self, request):
- 		events = Events.objects.all()
- 		participants = Participants.objects.all()
- 		users = Users.object.all()
- 		context = {
- 			'events': events,
- 			'participants': participants,
- 			'users': users	
- 		}
- 		return render(request,'feed.html', context )
-	
-
-
 
 class login(View):
 	def get(self,request):
@@ -37,8 +22,19 @@ class login(View):
 
  			a = bool(Users.objects.filter(username = usern, pword = password))
  				#users =Users.objects.filter(firstName = 'Yanni').delete()
- 			if a == True:
- 				return render(request,'feed.html')
+ 			user_info = Users.objects.filter(username = usern, pword = password)
+ 			if (a == True):
+ 				users = Users.objects.all()
+ 				participants = Participants.objects.all()
+ 				events = Events.objects.all()
+ 				context = {
+ 					'events': events,
+ 					'participants': participants,
+ 					'users': users,
+ 					'user_info': user_info
+ 				}
+ 				return render(request,'feed.html', context )
+ 				
  			else:
  				return HttpResponse('Not Valid')
  			#form.save()
@@ -74,16 +70,16 @@ class register(View):
  			city = request.POST.get("city")
  			st = request.POST.get("street")
 
- 			a = bool(Users.objects.filter(username = usern, pword = pword, firstName = fname, lastName = lname, mobileNum = mn,
+ 			a = bool(Users.objects.filter(username = usern, pword = pword, firstname = fname, lastname = lname, mobile = mn,
 						country = country, province = pro, city = city, street = st))
  				
  			if(a == True):
  				return HttpResponse('Account already exist')
  			else:
- 				form = Users(username = usern, pword = pword, firstName = fname, lastName = lname, mobileNum = mn,
+ 				form = Users(username = usern, pword = pword, firstname = fname, lastname = lname, mobile = mn,
 						country = country, province = pro, city = city, street = st)
  				form.save()
- 				return redirect('meteroEvents:login')
+ 				return redirect('meteroEvents:feed')
  				
  		
  		else:
