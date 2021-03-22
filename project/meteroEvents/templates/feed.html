@@ -1,0 +1,309 @@
+ {% load static %}
+{% block headerinclude %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>User Events Feed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{% static '/css/feedstyle.css' %}">
+    
+{% endblock headerinclude %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(".btnEvent").click(function(){
+            $(this).text($(this).text() == '+ Join Event' ? 'Cancel Join' : '+ Join Event');
+        });
+    });
+    </script>
+{% block footerinclude %}
+    
+{% endblock footerinclude %}
+
+{% block content %}
+<body>
+<div class="container">
+<div class="profile-page tx-13">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="profile-header">
+                <div class="header-links">
+                    <ul class="links d-flex align-items-center mt-3 mt-md-0">
+                        <li class="header-link-item d-flex align-items-center active">
+                            <a class="pt-1px d-none d-md-block" href="{% url 'metroE:feed' %}" style="padding-right: 5px;">Metro Events</a>
+                        </li>
+
+                        <li class="header-link-item d-flex align-items-center">
+                            <input type="search" id="site-search">
+                            <button class="btnSearch"><i class="fa fa-search" aria-hidden="true" style="color:white;"></i></button>
+
+                        </li>
+
+
+
+                        
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row profile-body">
+        <!-- left wrapper start -->
+        <div class="d-none d-md-block col-md-4 col-xl-3 left-wrapper">
+            <div class="card rounded">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h6 class="card-title mb-0">About</h6>
+                        <div class="dropdown">
+                            <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal icon-lg text-muted pb-3px">
+                                    <circle cx="12" cy="12" r="1"></circle>
+                                    <circle cx="19" cy="12" r="1"></circle>
+                                    <circle cx="5" cy="12" r="1"></circle>
+                                </svg>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 icon-sm mr-2">
+                                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                    </svg> <span class="">Edit</span></a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-branch icon-sm mr-2">
+                                        <line x1="6" y1="3" x2="6" y2="15"></line>
+                                        <circle cx="18" cy="6" r="3"></circle>
+                                        <circle cx="6" cy="18" r="3"></circle>
+                                        <path d="M18 9a9 9 0 0 1-9 9"></path>
+                                    </svg> <span class="">Update</span></a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm mr-2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg> <span class="">View all</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Hi! My name is chuchu.</p>
+                    <div class="mt-3">
+                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Joined:</label>
+                        <p class="text-muted">March 22, 2021</p>
+                    </div>
+                    <div class="mt-3">
+                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Lives:</label>
+                        <p class="text-muted">Talisay, Cebu City</p>
+                    </div>
+                    <div class="mt-3">
+                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Email:</label>
+                        <p class="text-muted">me@gmail.com</p>
+                    </div>
+                    <div class="mt-3">
+                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Website:</label>
+                        <p class="text-muted">www.mememe.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- left wrapper end -->
+        <!-- middle wrapper start -->
+        <div class="col-md-8 col-xl-6 middle-wrapper">
+            <div class="row">
+                <div class="col-md-12 grid-margin">
+                    <div class="card rounded">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <div class="ml-2">
+                                        <p><b>Art Exhibition</b></p>
+                                        <!--<p class="tx-11 text-muted">1 min ago</p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <img class="img-fluid" src="{% static 'images/event1.jpg' %}"> 
+                            <p class="mb-3 tx-14">
+                            <p class="mb-3 tx-14"><b>Event:</b> Art Exhibition</p>
+                            <p class="mb-3 tx-14"><b>Host:</b> hARTken</p>
+                            <p class="mb-3 tx-14"><b>Date:</b> November 10, 2021</p>
+                            <p class="mb-3 tx-14"><b>Time:</b> 8:00AM - 11:00 AM</p>
+                        </div>
+
+
+                        <div class="card-footer">
+                            <div class="d-flex post-actions">
+                                <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <p class="d-none d-md-block ml-2">Upvote</p>
+                                </a>
+                                
+
+                                <a>
+                                    <p class="d-none d-md-block ml-2"><button type="button" class="btnEvent" style="background-color:#FF5733; border: none; color: white; border-radius: 5px;">+ Join Event</button></p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="card rounded">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <div class="ml-2">
+                                        <p><b>Indie Music Fest</b></p>
+                                        <!--<p class="tx-11 text-muted">1 min ago</p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card-body">
+                            <img class="img-fluid" src="{% static 'images/event3.jpg' %}"> 
+                            <p class="mb-3 tx-14">
+                            <p class="mb-3 tx-14"><b>Event:</b> Indie Music Fest</p>
+                            <p class="mb-3 tx-14"><b>Host:</b> Furbabyfur</p>
+                            <p class="mb-3 tx-14"><b>Date:</b> March 27, 2021</p>
+                            <p class="mb-3 tx-14"><b>Time:</b> 8:00PM - 10:00 PM</p>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="d-flex post-actions">
+                                <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <p class="d-none d-md-block ml-2">Upvote</p>
+                                </a>
+
+                                <a>
+                                    <p class="d-none d-md-block ml-2"><button type="button" class="btnEvent" style="background-color:#FF5733; border: none; color: white; border-radius: 5px;">+ Join Event</button></p>
+                                </a>
+                            </div>
+                        </div>                    
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <br>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- middle wrapper end -->
+        <!-- right wrapper start -->
+        <div class="d-none d-xl-block col-xl-3 right-wrapper">
+            <div class="row">
+                <div class="col-md-12 grid-margin">
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h6 class="card-title"><b>Upcoming Events</b></h6>
+                            <div class="up-events">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p><b>Today</b></p>
+                                        <hr>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <p><b>Tomorrow</b></p>
+                                        <hr>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <p><b>Wednesday</b></p>
+                                        <p style="font-size: 13px;"> Boy Pablo Meet & Greet</p>
+                                        <p style="font-size: 13px;"> Wednesday, 9:00AM-10PM</p>
+                                        <hr>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <p><b>Friday</b></p>       
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+
+                <br>
+
+                <div class="col-md-12 grid-margin">
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h6 class="card-title">Pending Requests</h6>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center hover-pointer">
+                                    <img class="img-xs rounded-circle" src="{% static 'images/organizer.png' %}"> 
+                                    <div class="ml-2">
+                                        <p style="font-size: 13px;">Request for organizer</p>
+                                        <p class="text-muted" style="font-size: 12px;">Not Viewed</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-icon">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="col-md-12 grid-margin">
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h6 class="card-title"><b>History</b></h6>
+                            <div class="up-events">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="text-muted" style="font-size: 13px;"> Fall Into your future Webinar</p>
+                                        <p class="text-muted" style="font-size: 13px;"> Thursday, January 26, 2021</p>
+                                        <p class="text-muted" style="font-size: 13px;"> 9:30AM - 11:30 AM</p>
+                                        <hr>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <p class="text-muted" style="font-size: 13px;">Sustainable Resource Orientation</p>
+                                        <p class="text-muted" style="font-size: 13px;"> Saturday, February 2, 2021</p>
+                                        <p class="text-muted" style="font-size: 13px;"> 9:30AM - 11:30 AM</p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        <!-- right wrapper end -->
+         </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> 
+{% endblock content %}

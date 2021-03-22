@@ -88,3 +88,7 @@ class register(View):
  		else:
  			print(form.errors)
  			return HttpResponse('Not Valid')
+
+class feed(View):
+	def get(self, request):
+		return render(request,'feed.html')

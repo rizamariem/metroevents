@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ['*']
 
 STATICFILES_DIRS = [
     "C:/Users/Valued Client/Desktop/project/group4ME/static",
+    "C:/Users/Paña Family/Documents/GitHub/Group4ME/group4ME/static",
 ]
 # Application definition
 
