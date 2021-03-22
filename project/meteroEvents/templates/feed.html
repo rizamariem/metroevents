@@ -144,15 +144,10 @@
               border: 1px solid #ddd; padding: 5px; margin-top: 3%; margin-left: 3%;">--> 
                          
 {% for event in events %}                            <p class="mb-3 tx-14">
-@{
 
-var db = Database.Open("me"); 
-var query = "SELECT firstname,lastname FROM users WHERE users.id = event.id AND organizers.id = event.id; 
-}
-@foreach(var row in db.Query(query))
-{
-     <p class="mb-3 tx-14" >@row.firstname @row.lastname</p>
-}
+
+     <p class="mb-3 tx-14" >oten</p>
+
                            
                             <p class="mb-3 tx-14"><b>Start:</b> November 10, 2021</p>
                             <p class="mb-3 tx-14" style ="margin-top: -8%; margin-left: 60%"><b>End:</b> 8:00AM - 11:00 AM</p>

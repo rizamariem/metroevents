@@ -28,18 +28,17 @@ class Administrator(models.Model):
 		db_table = "Administrator"
 
 class Events(models.Model):	
-	organizer = models.ForeignKey('Organizers', on_delete=models.CASCADE)
-	event_id = models.IntegerField()
+	organizer = models.ForeignKey('Organizers', on_delete=models.CASCADE, default =111)
 	event_type = models.CharField(max_length = 45, null = False)
 	event_name = models.CharField(max_length = 50)
 	venue = models.CharField(max_length = 100)
-	upvote = models.IntegerField()
+	upvote = models.IntegerField(default = 0)
 	date_start = models.DateField(auto_now=True)
 	date_end = models.DateField(auto_now=True)
 	image = models.FileField(upload_to ='media', default= 'default.jpg', blank = True, null = True)
 	video = models.FileField(upload_to ='media', default= 'default.jpg', blank = True, null = True)
 	cancellation = models.BinaryField(default = 0)
-	cancellationDate = models.DateField(auto_now=True)
+	cancellationDate = models.DateField(auto_now=False, null = True)
 	description = models.CharField(max_length = 100, null = True)
 	targetLocation = models.CharField(max_length = 20,null = True)
 

@@ -11,45 +11,34 @@ class login(View):
 		events = Events.objects.all()
 		participants = Participants.objects.all()
 		return render(request,'login.html')
- 		
 
 	def post(self, request):
- 		form = loginForm(request.POST, request.FILES)
- 		if form.is_valid():
- 			usern = request.POST.get("username")
- 			password = request.POST.get("password")
- 			
+		form = loginForm(request.POST, request.FILES)
+		if form.is_valid():
+			usern = request.POST.get("username")
+			password = request.POST.get("password")
+			a = bool(Users.objects.filter(username = usern, pword = password))
+			user_info = Users.objects.filter(username = usern, pword = password)
 
- 			a = bool(Users.objects.filter(username = usern, pword = password))
- 				#users =Users.objects.filter(firstName = 'Yanni').delete()
- 			user_info = Users.objects.filter(username = usern, pword = password)
- 			if (a == True):
- 				users = Users.objects.all()
- 				participants = Participants.objects.all()
- 				events = Events.objects.all()
- 				context = {
- 					'events': events,
- 					'participants': participants,
- 					'users': users,
- 					'user_info': user_info
- 				}
- 				return render(request,'feed.html', context )
- 				
- 			else:
- 				return HttpResponse('Not Valid')
- 			#form.save()
+			if (a == True):
+				users = Users.objects.all()
+				organizers = Organizer.objects.all()
+				participants = Participants.objects.all()
+				events = Events.objects.all()
+				context = {
+				'events': events,
+				'participants': participants,
+				'users': users,
+				'user_info': user_info,
+				'organizers': organizers
+				}
 
- 			#return render(request,'login.html')
- 		#else:
- 			#print(form.errors)
- 			#return HttpResponse('Not Valid')
+				return render(request, 'feed.html', context)
+			else:
+	 			return HttpResponse('Not Valid')
 	
 
-			#return HttpResponse('Medicine Record Saved!')			
-			#return render(request,'index.html')
 			
-			# except:
-			# 	raise Http404
 	
 class register(View):
 	def get(self, request):
@@ -86,6 +75,3 @@ class register(View):
  			print(form.errors)
  			return HttpResponse('Not Valid')
 
-class feed(View):
-	def get(self, request):
-		return render(request,'feed.html')
