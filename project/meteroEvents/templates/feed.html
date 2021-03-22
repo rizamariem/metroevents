@@ -143,10 +143,11 @@
                            <!-- <img src="{{customer.profilePicture.url}}" width="196px" height="212px" style="border-radius: 8px;
               border: 1px solid #ddd; padding: 5px; margin-top: 3%; margin-left: 3%;">--> 
                          
-{% for event in events %}                            <p class="mb-3 tx-14">
+{% for event in events %}                            <p class="mb-3 tx-14"></p>
+{% for organizer in organizers%}
+    {% if event.organizer_id%}
 
-
-     <p class="mb-3 tx-14" >oten</p>
+                            <p class="mb-3 tx-14" >oten</p>
 
                            
                             <p class="mb-3 tx-14"><b>Start:</b> November 10, 2021</p>
