@@ -35,9 +35,10 @@ class login(View):
  			password = request.POST.get("password")
  			
 
- 			if bool(Users.objects.filter(username = usern, pword = password)) == True:
+ 			a = bool(Users.objects.filter(username = usern, pword = password))
  				#users =Users.objects.filter(firstName = 'Yanni').delete()
- 				return HttpResponse(' Valid')
+ 			if a == True:
+ 				return render(request,'feed.html')
  			else:
  				return HttpResponse('Not Valid')
  			#form.save()
