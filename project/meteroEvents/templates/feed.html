@@ -20,7 +20,7 @@
     <script>
     $(document).ready(function(){
         $(".btnEvent").click(function(){
-            $(this).text($(this).text() == '+ Join Event' ? 'Cancel Join' : '+ Join Event');
+            $(this).text($(this).text() == '+ Join Event' ? 'Cancel ' : '+ Join Event');
         });
     });
     </script>
@@ -169,26 +169,23 @@
                                  <form action="" id="updateForm" method=" POST">
                                 <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
-
-                                 
-                                    
-                                    ----
                                     </svg>
                                    
-                              
+                                    {% if event.upvote == 0  %}
                                     <input type="number" name="event_id" value={{event.id}} hidden > 
-                                   <button  type="submit" id="btnUpvote" name="btnUpvote" style="border: none;background: none; outline: none; margin-top: -5px"> upvote</button>
-                                   
+                                   <button  type="submit" id="btnUpvote" name="btnUpvote"  style="border: none;background: none; outline: none; margin-top: -px"> upvote</button>
+                                    {% else %}
 
                                       <button type="submit" id="btnUpvote" name="btnUpvote" style="border: none;background: none; outline: none; margin-top: -17px"><u>Upvote</u> </button>
-                                    
+                                    {% endif %}
                                 </a>
                                 </form>
+                                <p class="mb-3 tx-14" style ="margin-top: -8%; margin-left: -25%"><b>Descriptions:</b> {{ event.description }}</p>
                 {% endif %}
             {% endfor%}
         {% endif %}
     {% endfor %}                              
-{% endfor%}      {% if event.upvote == 0  %} {% endif %}
+{% endfor%}
                                 <a>
                                     <p class="d-none d-md-block ml-2"><button type="button" class="btnEvent" style="background-color:#FF5733; border: none; color: white; border-radius: 5px;">+ Join Event</button></p>
                                 </a>
