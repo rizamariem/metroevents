@@ -142,6 +142,18 @@
                             <img class="img-fluid" src="{% static 'images/event1.jpg' %}"> 
                            <!-- <img src="{{customer.profilePicture.url}}" width="196px" height="212px" style="border-radius: 8px;
               border: 1px solid #ddd; padding: 5px; margin-top: 3%; margin-left: 3%;">--> 
+{% for event in events %}
+    {% for organizer in organizers%}
+        {% if organizer.id == event.organizer_id%}
+            {% for user in users%}
+                {% if user.id == organizer.user_id%}
+                     <p class="mb-3 tx-14"> {{user.firstname}} {{user.lastname}}</p>
+                {% endif %}
+            {% endfor%}
+        {% endif %}
+    {% endfor %}
+
+{% endfor%}   
                                    <p class="mb-3 tx-14"></p>
 
                             <p class="mb-3 tx-14" >oten</p>

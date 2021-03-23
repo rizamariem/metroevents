@@ -2,8 +2,9 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.http import HttpResponse
-from .forms import loginForm, registerForm
+from .forms import loginForm, registerForm, regEventForm
 from .models import *
+from django.db import connection
 
 
 class login(View):
@@ -75,3 +76,45 @@ class register(View):
  			print(form.errors)
  			return HttpResponse('Not Valid')
 
+
+
+class registerEvent(View):
+	def get(self, request):
+		organizers = Organizers.objects.all()
+		context ={
+			'organizers': organizers,
+		}
+		return render(request, 'wanto.html',context)
+
+	def post(self, request):
+		organizer = Organizers.objects.all()
+		
+		
+		
+		
+		form = regEventForm(request.POST, request.FILES)
+
+		if form.is_valid():
+			c = connection.cursor()
+			org_id = request.POST.get("org_id")
+			pword = request.POST.get("type")
+			fname = request.POST.get("name")
+			lname = request.POST.get("venue")
+			mn = request.POST.get("start")
+			gender = request.POST.get("end")
+			im_3 = request.FILES['image']
+			#pro = request.POST.get("mobileNum")
+			city = request.POST.get("description")
+			st = request.POST.get("target")
+			org = Organizers.objects.get(id = org_id)
+			 
+			form = Events( organizer_id = org , event_type = pword, event_name = fname, 
+				venue = lname, date_start = mn,date_end= gender, image = im_3,
+				description = city, targetLocation = st)
+			form.save()
+			#c.execute("INSERT INTO organizers(organizer_id, event_type, event_name, venue, date_start, date_end,image,description, targetLocation ) VALUES(  %d , %s, %s, %s, %s, %s, %s, %s, %s )", [org_id, pword,fname,lname,mn,gender,im_3,city,st] )
+			#c.commit()
+			#form.save()
+			return HttpResponse( 'oten',org)
+		else:
+			return HttpResponse(' not Valid')

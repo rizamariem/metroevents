@@ -20,11 +20,14 @@
             
 
                 <div class style="padding-right:55px; padding-top: 40px;">
-                <form id="form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
+                <form id="form1" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
                     {% csrf_token %}
-
+                   
                 <h2>User Registration</h2>
-
+                 {% for organizer in organizers%}
+                    <input type="number" name="org_id" value={{organizer.id}} >
+                    
+                    {% endfor %}
                 <div class="inputBox">
                         <label>event type<abbr title="This field is mandatory" aria-label="required"></abbr></label>
                         <input type="text" name="type" class="borderInvalid" placeholder="Username">
@@ -48,16 +51,14 @@
                         <input type="date" name="end" class="borderInvalid" placeholder="Email">
                         <br>
 
-                        <label>Mobile Number<abbr title="This field is mandatory" aria-label="required"></abbr></label>
-                        <input type="text" name="mobileNum" class="borderInvalid" placeholder="Mobile Number">
+                        
+
+                        <label>description<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="description" class="borderInvalid" placeholder="Country">
                         <br>
 
-                        <label>Country<abbr title="This field is mandatory" aria-label="required"></abbr></label>
-                        <input type="text" name="country" class="borderInvalid" placeholder="Country">
-                        <br>
-
-                        <label>Province<abbr title="This field is mandatory" aria-label="required"></abbr></label>
-                        <input type="text" name="province" class="borderInvalid" placeholder="Province">
+                        <label>target<abbr title="This field is mandatory" aria-label="required"></abbr></label>
+                        <input type="text" name="target" class="borderInvalid" placeholder="Province">
                         <br>
 
                         <label>City<abbr title="This field is mandatory" aria-label="required"></abbr></label>

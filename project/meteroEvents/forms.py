@@ -14,3 +14,7 @@ class registerForm(forms.ModelForm):
         model = Users
         fields = ('username',)
 
+class regEventForm(forms.ModelForm):
+    class Meta:
+    	model = Events
+    	fields = ('venue',)
