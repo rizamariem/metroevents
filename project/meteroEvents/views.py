@@ -22,7 +22,7 @@ class login(View):
 
 			if (a == True):
 				users = Users.objects.all()
-				organizers = Organizer.objects.all()
+				organizers = Organizers.objects.all()
 				participants = Participants.objects.all()
 				events = Events.objects.all()
 				context = {

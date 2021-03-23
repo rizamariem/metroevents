@@ -28,7 +28,7 @@ class Administrator(models.Model):
 		db_table = "Administrator"
 
 class Events(models.Model):	
-	organizer = models.ForeignKey('Organizers', on_delete=models.CASCADE, default =111)
+	organizer_id = models.ForeignKey('Organizers', on_delete=models.CASCADE, default =111)
 	event_type = models.CharField(max_length = 45, null = False)
 	event_name = models.CharField(max_length = 50)
 	venue = models.CharField(max_length = 100)
@@ -56,7 +56,7 @@ class Notification(models.Model):
 		db_table = "Notification"
 
 class Organizers(models.Model):
-	user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
+	user_id	 = models.ForeignKey('Users', on_delete=models.CASCADE)
 	registered_date = models.DateField(auto_now=True)
 
 	class Meta:
