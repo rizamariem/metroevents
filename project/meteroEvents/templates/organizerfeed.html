@@ -13,14 +13,14 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="{% static '/css/feedstyle.css' %}">
+    <link rel="stylesheet" href="{% static '/css/organizerstyle.css' %}">
     
 {% endblock headerinclude %}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
     $(document).ready(function(){
         $(".btnEvent").click(function(){
-            $(this).text($(this).text() == '+ Join Event' ? 'Cancel ' : '+ Join Event');
+            $(this).text($(this).text() == '+ Join Event' ? 'Cancel Join' : '+ Join Event');
         });
     });
     </script>
@@ -136,56 +136,47 @@
                                 </div>
                             </div>
                         </div>
-{% for event in events %}          
+                     
                         <div class="card-body">
-                            <p><b>{{event.name}}</b></p>
-                         <!--   <img class="img-fluid" src="{% static 'images/event1.jpg' %}"> --> 
-                        <center>   <img src="{{event.image.url}}"  height="300px" style=" border-radius: 8px;
-              border: 1px solid #ddd; padding: 5px; margin-top: 3%; margin-left: 3%;"> </center>
-
+                            <p><b>Art Exhibition</b></p>
+                            <img class="img-fluid" src="{% static 'images/event1.jpg' %}"> 
+                           <!-- <img src="{{customer.profilePicture.url}}" width="196px" height="212px" style="border-radius: 8px;
+              border: 1px solid #ddd; padding: 5px; margin-top: 3%; margin-left: 3%;">--> 
+{% for event in events %}
+<p class="mb-3 tx-14"> {{event.organizer_id}}</p>
     {% for organizer in organizers%}
-        {% if organizer.id == event.organizer_id.id %}
+    <p class="mb-3 tx-14"> {{organizer.user_id}}</p>
+        {% if organizer.id == event.organizer_id %}
+        <p class="mb-3 tx-14"> true</p>
             {% for user in users%}
-                {% if user.id == organizer.user_id.id %}
-                     <p class="mb-3 tx-14" style="margin-top: 10px"><b>Host:</b>   {{user.firstname}} {{user.lastname}}</p>
-                
-
-  
-                                   <p class="mb-3 tx-14"></p>
-
-                            <p class="mb-3 tx-14" ></p>
-
-                           
-                            <p class="mb-3 tx-14"><b>Start:</b> {{event.date_start}}</p> 
-                            <p class="mb-3 tx-14" style ="margin-top: -8%; margin-left: 60%"><b>End:</b> {{ event.date_end }}</p>
-                        </div>
-                        
-
-                        <div class="card-footer">
-
-                            <div class="d-flex post-actions">
-
-                                 <p style="margin-left: -%; margin-right: %">{{event.upvote}}</p>
-                                 <form action="" id="updateForm" method=" POST">
-                                <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
-                                    </svg>
-                                   
-                                    {% if event.upvote == 0  %}
-                                    <input type="number" name="event_id" value={{event.id}} hidden > 
-                                   <button  type="submit" id="btnUpvote" name="btnUpvote"  style="border: none;background: none; outline: none; margin-top: -px"> upvote</button>
-                                    {% else %}
-
-                                      <button type="submit" id="btnUpvote" name="btnUpvote" style="border: none;background: none; outline: none; margin-top: -17px"><u>Upvote</u> </button>
-                                    {% endif %}
-                                </a>
-                                </form>
-                                <p class="mb-3 tx-14" style ="margin-top: -8%; margin-left: -25%"><b>Descriptions:</b> {{ event.description }}</p>
+                {% if user.id == organizer.user_id%}
+                     <p class="mb-3 tx-14"> {{user.firstname}} {{user.lastname}}</p>
                 {% endif %}
             {% endfor%}
         {% endif %}
-    {% endfor %}                              
-{% endfor%}
+    {% endfor %}
+
+{% endfor%}   
+                                   <p class="mb-3 tx-14"></p>
+
+                            <p class="mb-3 tx-14" >oten</p>
+
+                           
+                            <p class="mb-3 tx-14"><b>Start:</b> November 10, 2021</p>
+                            <p class="mb-3 tx-14" style ="margin-top: -8%; margin-left: 60%"><b>End:</b> 8:00AM - 11:00 AM</p>
+                        </div>
+                       
+
+                        <div class="card-footer">
+                            <div class="d-flex post-actions">
+                                <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <p class="d-none d-md-block ml-2">Upvote</p>
+                                </a>
+                                
+
                                 <a>
                                     <p class="d-none d-md-block ml-2"><button type="button" class="btnEvent" style="background-color:#FF5733; border: none; color: white; border-radius: 5px;">+ Join Event</button></p>
                                 </a>

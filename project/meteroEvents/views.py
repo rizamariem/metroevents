@@ -130,3 +130,8 @@ class registerEvent(View):
 			return HttpResponse( 'oten',org)
 		else:
 			return HttpResponse(' not Valid')
+
+
+class organizerFeed(View):
+	def get(self, request):
+		return render(request,'organizerfeed.html')
