@@ -30,7 +30,7 @@
 
 {% block content %}
 <body>
-
+ {% load static %}
 <div class="container">
 <div class="profile-page tx-13">
     <div class="row">
@@ -118,7 +118,7 @@
                 </div>
             </div>
         </div>
-                {% endfor %}
+                
 
         <!-- left wrapper end -->
         <!-- middle wrapper start -->
@@ -165,29 +165,39 @@
 
                             <div class="d-flex post-actions">
 
-                                 <p style="margin-left: -%; margin-right: %">{{event.upvote}}</p>
-                                 <form action="" id="updateForm" method=" POST">
+                                <!-- <p style="margin-left: -%; margin-right: %">{{event.upvote}}</p>-->
+                                 
                                 <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
                                     </svg>
                                    
-                                    {% if event.upvote == 0  %}
-                                    <input type="number" name="event_id" value={{event.id}} hidden > 
-                                   <button  type="submit" id="btnUpvote" name="btnUpvote"  style="border: none;background: none; outline: none; margin-top: -px"> upvote</button>
-                                    {% else %}
-
-                                      <button type="submit" id="btnUpvote" name="btnUpvote" style="border: none;background: none; outline: none; margin-top: -17px"><u>Upvote</u> </button>
-                                    {% endif %}
-                                </a>
-                                </form>
-                                <p class="mb-3 tx-14" style ="margin-top: -8%; margin-left: -25%"><b>Descriptions:</b> {{ event.description }}</p>
+                                  
+                                    
+                                    <form action="" id="updateForm" method="post"> 
+                                         {% csrf_token %}
+                                           <input type="text" name="eventid" value = {{event.id}} hidden>
+                                  <button  type="submit" id="btnUpvote" name="btnUpvote"  class="btn btn-success" style="border: none; background-color: Transparent; outline: none ; color: black"> upvote</button>
+                                   </a>
+                                   
+                                    </form>
+                                  
+                                
+                               
+                                <p class="mb-3 tx-14" style ="margin-top: -8%; margin-left: -25%"><b>Descriptions:</b> {{ event.description }}</p> 
+                                 
                 {% endif %}
             {% endfor%}
         {% endif %}
-    {% endfor %}                              
-{% endfor%}
-                                <a>
-                                    <p class="d-none d-md-block ml-2"><button type="button" class="btnEvent" style="background-color:#FF5733; border: none; color: white; border-radius: 5px;">+ Join Event</button></p>
+    {% endfor %}                   
+                            <form id="" method="post">
+                            {% csrf_token %}
+                        <input type="text" name="eventid" value = {{event.id}} hidden>
+                         <input type="text" name="userid" value = {{user.id}} hidden>
+
+                                    <button type="submit" name="btnJoin"  style="background-color:#FF5733; border: none; color: white; border-radius: 5px; margin-top: -40%; ">+ Join Event</button>
+                                    <button type="submit" name="btnCancel"  style="background-color:#FF5733; border: none; color: white; border-radius: 5px;">+ Cancel</button>
+                                </form>
+                                     <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal-{{event.id}}" style="font-size: 14px; vertical-align: center color: blue; margin-top:  0px; color: white; margin-left: 3%; margin-right: -20%; height: 27px; width: 80px ">Reviews</a>
                                 </a>
                             </div>
                         </div>
@@ -201,6 +211,49 @@
 
             </div>
         </div>
+
+
+<div class="modal fade" id="newModal-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content" style="background-color: #f0f0f0">
+                        <div class="modal-header" style="background-color:#FF5733">
+                          <h5 class="modal-title" style="color: white">{{event.name}} Reviews</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form id="" method="post">
+                            {% csrf_token %}
+                    <div class="modal-body" style="height: 40%; overflow: auto">  
+                        <input type="text" name="eventid" value = {{event.id}} hidden>
+                            {% for review in reviews %}
+                            
+                           
+                            {% if review.event_id.id == event.id %}
+                            <p>{{review.review}}</p>
+                            {% endif%}
+                            {% endfor%}
+       
+                    </div>
+                     </form>
+                      <form action"" method="post">
+                            {% csrf_token %}
+                   <input type="text" name="eventid" value = {{event.id}} hidden>
+                   <input type="text" name="userid" value = {{user.id}} hidden>
+                    <input type="text" name="review" value ="" placeholder="type here.." style="margin-left: 10%; margin-top: 10%; width: 60%">
+                    <div class="modal-footer">
+
+              <button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733">publish</button> 
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">cancel</button>
+                        </div>
+                    </form>
+               
+            </div>
+        </div>
+    </div>
+    {% endfor%}  
+{% endfor %}
+
 
 
         <!-- middle wrapper end -->

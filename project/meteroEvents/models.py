@@ -73,9 +73,10 @@ class Participants(models.Model):
 class Requests(models.Model):
 	
 	user = models.ForeignKey('Users', on_delete=models.CASCADE)
+	event = models.ForeignKey('Events',on_delete=models.CASCADE, null = True)
 	req_type = models.IntegerField()
-	role = models.IntegerField(default = 0)
-	description = models.CharField(max_length = 100)
+	req_role = models.IntegerField(default = 0)
+	description = models.CharField(max_length = 100, null = True)
 	req_date = models.DateField(auto_now=True)
 	response = models.IntegerField(default = 2)
 

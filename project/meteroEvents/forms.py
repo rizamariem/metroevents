@@ -18,3 +18,6 @@ class regEventForm(forms.ModelForm):
     class Meta:
     	model = Events
     	fields = ('venue',)
+
+    	
+

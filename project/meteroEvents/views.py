@@ -13,43 +13,79 @@ class login(View):
 		participants = Participants.objects.all()
 		return render(request,'login.html')
 
+	
 	def post(self, request):
 		if request.method == 'POST':
-			if 'btnUpvote' in request.POST:
-				e_id = request.POST.get("event_id")
-				upvote = Events.objects.filter(id =e_id)
-				event = Event.objects.filter(id = e_id).update(upvote = 1)
-				return HttpResponse(e_id)
+			if 'btnLogin' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+
+				if form.is_valid():
+					usern = request.POST.get("username")
+					password = request.POST.get("password")
+					a = bool(Users.objects.filter(username = usern, pword = password))
+					user_info = Users.objects.filter(username = usern, pword = password)
+
+					if (a == True):
+						users = Users.objects.all()
+						organizers = Organizers.objects.all()
+						participants = Participants.objects.all()
+						events = Events.objects.all()
+						reviews = Reviews.objects.all()
+						context = {
+						'events': events,
+						'participants': participants,
+						'users': users,
+						'user_info': user_info,
+						'organizers': organizers,
+						'reviews': reviews
+						}
+
+						return render(request, 'feed.html', context)
+					else:
+						return HttpResponse('Not Valid')
+				else:
+					return HttpResponse('please enter fields')
+
+			elif 'btnUpvote' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				e_id = request.POST.get("eventid")
+				upvote = Events.objects.values_list('upvote', flat=True).filter(id =e_id)
+				a = upvote
+				b =1
+				event = Events.objects.filter(id = e_id).update(upvote = 1)
+				return HttpResponse('upvoted')
 	
-	def post(self, request):
-		form = loginForm(request.POST, request.FILES)
-		if form.is_valid():
-			usern = request.POST.get("username")
-			password = request.POST.get("password")
-			a = bool(Users.objects.filter(username = usern, pword = password))
-			user_info = Users.objects.filter(username = usern, pword = password)
 
-			if (a == True):
-				users = Users.objects.all()
-				organizers = Organizers.objects.all()
-				participants = Participants.objects.all()
-				events = Events.objects.all()
-				context = {
-				'events': events,
-				'participants': participants,
-				'users': users,
-				'user_info': user_info,
-				'organizers': organizers
-				}
+			elif 'btnPublish' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				review = request.POST.get("review")
+				e_id = request.POST.get("eventid")
+				u_id = request.POST.get("userid")
+				event = Events.objects.get(id = e_id)
+				user = Users.objects.get(id = u_id)
+				form = Reviews(event_id = event, review = review, user_id = user)
+				form.save()
+				return HttpResponse('Review published')
 
-				return render(request, 'feed.html', context)
-			else:
-				return HttpResponse('Not Valid')
+			elif 'btnJoin' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				e_id = request.POST.get("eventid")
+				u_id = request.POST.get("userid")
+				event = Events.objects.get(id = e_id)
+				user = Users.objects.get(id = u_id)
+				form = Requests(event = event, req_type = 1, user = user)
+				form.save()
+				return HttpResponse('Request to join sent')
 
-		
-	
-
-			
+			elif 'btnCancel' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				e_id = request.POST.get("eventid")
+				u_id = request.POST.get("userid")
+				event = Events.objects.get(id = e_id)
+				user = Users.objects.get(id = u_id)
+				cancel = Requests.objects.filter(user = user, event = event).delete()
+				return HttpResponse('Request cancelled')
+				
 	
 class register(View):
 	def get(self, request):
@@ -120,14 +156,14 @@ class registerEvent(View):
 			st = request.POST.get("target")
 			org = Organizers.objects.get(id = org_id)
 			 
-			form = Events( organizer_id = org , event_type = pword, event_name = fname, 
+			form = Events( organizer_id = org , etype = pword, name = fname, 
 				venue = lname, date_start = mn,date_end= gender, image = im_3,
 				description = city, targetLocation = st)
 			form.save()
 			#c.execute("INSERT INTO organizers(organizer_id, event_type, event_name, venue, date_start, date_end,image,description, targetLocation ) VALUES(  %d , %s, %s, %s, %s, %s, %s, %s, %s )", [org_id, pword,fname,lname,mn,gender,im_3,city,st] )
 			#c.commit()
 			#form.save()
-			return HttpResponse( 'oten',org)
+			return HttpResponse( 'register successful')
 		else:
 			return HttpResponse(' not Valid')
 
