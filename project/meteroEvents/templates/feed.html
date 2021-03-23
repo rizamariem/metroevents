@@ -143,8 +143,11 @@
                            <!-- <img src="{{customer.profilePicture.url}}" width="196px" height="212px" style="border-radius: 8px;
               border: 1px solid #ddd; padding: 5px; margin-top: 3%; margin-left: 3%;">--> 
 {% for event in events %}
+<p class="mb-3 tx-14"> {{event.organizer_id}}</p>
     {% for organizer in organizers%}
-        {% if organizer.id == event.organizer_id%}
+    <p class="mb-3 tx-14"> {{organizer.user_id}}</p>
+        {% if organizer.id == event.organizer_id %}
+        <p class="mb-3 tx-14"> true</p>
             {% for user in users%}
                 {% if user.id == organizer.user_id%}
                      <p class="mb-3 tx-14"> {{user.firstname}} {{user.lastname}}</p>
