@@ -29,8 +29,8 @@ class Administrator(models.Model):
 
 class Events(models.Model):	
 	organizer_id = models.ForeignKey('Organizers', on_delete=models.CASCADE, default =111)
-	event_type = models.CharField(max_length = 45, null = False)
-	event_name = models.CharField(max_length = 50)
+	etype = models.CharField(max_length = 45, null = False)
+	name = models.CharField(max_length = 50)
 	venue = models.CharField(max_length = 100)
 	upvote = models.IntegerField(default = 0)
 	date_start = models.DateField(auto_now=True)

@@ -25,7 +25,7 @@
                    
                 <h2>User Registration</h2>
                  {% for organizer in organizers%}
-                    <input type="number" name="org_id" value={{organizer.id}} >
+                    <input type="number" name="org_id" value={{organizer.id}} hidden>
                     
                     {% endfor %}
                 <div class="inputBox">

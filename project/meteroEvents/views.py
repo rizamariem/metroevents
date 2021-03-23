@@ -14,6 +14,14 @@ class login(View):
 		return render(request,'login.html')
 
 	def post(self, request):
+		if request.method == 'POST':
+			if 'btnUpvote' in request.POST:
+				e_id = request.POST.get("event_id")
+				upvote = Events.objects.filter(id =e_id)
+				event = Event.objects.filter(id = e_id).update(upvote = 1)
+				return HttpResponse(e_id)
+	
+	def post(self, request):
 		form = loginForm(request.POST, request.FILES)
 		if form.is_valid():
 			usern = request.POST.get("username")
@@ -36,7 +44,9 @@ class login(View):
 
 				return render(request, 'feed.html', context)
 			else:
-	 			return HttpResponse('Not Valid')
+				return HttpResponse('Not Valid')
+
+		
 	
 
 			
@@ -75,6 +85,8 @@ class register(View):
  		else:
  			print(form.errors)
  			return HttpResponse('Not Valid')
+
+	
 
 
 
