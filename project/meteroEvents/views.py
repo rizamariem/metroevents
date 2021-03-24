@@ -24,25 +24,40 @@ class login(View):
 					password = request.POST.get("password")
 					a = bool(Users.objects.filter(username = usern, pword = password))
 					user_info = Users.objects.filter(username = usern, pword = password)
-
-					if (a == True):
-						users = Users.objects.all()
-						organizers = Organizers.objects.all()
-						participants = Participants.objects.all()
-						events = Events.objects.all()
-						reviews = Reviews.objects.all()
-						context = {
-						'events': events,
-						'participants': participants,
-						'users': users,
-						'user_info': user_info,
-						'organizers': organizers,
-						'reviews': reviews
-						}
-
-						return render(request, 'feed.html', context)
-					else:
-						return HttpResponse('Not Valid')
+					for b in Users.objects.filter(username = usern, pword = password):
+						if (a == True):
+							if b.role == 1:
+								users = Users.objects.all()
+								organizers = Organizers.objects.all()
+								participants = Participants.objects.all()
+								events = Events.objects.all()
+								reviews = Reviews.objects.all()
+								context = {
+								'events': events,
+								'participants': participants,
+								'users': users,
+								'user_info': user_info,
+								'organizers': organizers,
+								'reviews': reviews
+								}
+								return render(request, 'feed.html', context)
+							elif b.role == 3:
+								users = Users.objects.all()
+								organizers = Organizers.objects.all()
+								participants = Participants.objects.all()
+								events = Events.objects.all()
+								reviews = Reviews.objects.all()
+								context = {
+								'events': events,
+								'participants': participants,
+								'users': users,
+								'user_info': user_info,
+								'organizers': organizers,
+								'reviews': reviews
+								}
+								return render(request, 'admin.html', context)
+						else:
+							return HttpResponse('invalid input')
 				else:
 					return HttpResponse('please enter fields')
 
@@ -51,8 +66,6 @@ class login(View):
 				e_id = request.POST.get("eventid")
 				uv = request.POST.get("upvote")
 				upvote = Events.objects.values_list('upvote', flat=True).filter(id =e_id)
-				a = upvote
-				b =1
 				event = Events.objects.filter(id = e_id).update(upvote = uv)
 				return HttpResponse('upvoted')
 	
@@ -194,6 +207,6 @@ class registerEvent(View):
 			return HttpResponse(' not Valid')
 
 
-class organizerFeed(View):
+class adminFeed(View):
 	def get(self, request):
-		return render(request,'organizerfeed.html')
+		return render(request,'admin.html')
