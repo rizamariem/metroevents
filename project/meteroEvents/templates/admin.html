@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard 3</title>
+    
 {% load static %}
     <!-- Fontfaces CSS-->
     <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
@@ -35,12 +35,12 @@
  {% load static %}
 </head>
 {% block content %}
-<body class="animsition">
+<body class="animsition" >
     <div class="page-wrapper">
         <!-- HEADER DESKTOP-->
-        <header class="header-desktop3 d-none d-lg-block">
+        <header class="header-desktop3 d-none d-lg-block" >
             <div class="section__content section__content--p35">
-                <div class="header3-wrap">
+                <div class="header3-wrap" >
                     <div class="header__logo">
                     </div>
                     <div class="header__navbar">
@@ -224,7 +224,7 @@
             <!-- END STATISTIC-->
 
             <!-- STATISTIC CHART-->
-            <section class="statistic-chart">
+            <section class="statistic-chart" style="height: 500px">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -234,31 +234,37 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-4">
                             <!-- TOP CAMPAIGN-->
-                            <div class="top-campaign">
+                            <div class="top-campaign" style="overflow: auto">
                                 <h3 class="title-3 m-b-30">Promotion requests</h3>
                                 <div class="table-responsive">
                                     <table class="table table-top-campaign">
                                         <tbody>
+                                             {% for request in requests %}
+                                             {% if request.response == 2%}
+                                                {% for user in users%}
+                                                {% if request.user.id == user.id and request.response == 2%}
+                                               
+                                    <form action="" id="updateForm" method="post"> 
+                                         {% csrf_token %} 
                                             <tr>
-                                                <td>Event Name</td>
-                                                <td>(insert number) Attendees</td>
+                                                <td>{{user.firstname}} {{user.lastname}}</td>
+                                                {% if request.req_role == 1 %}
+                                                <td>organizer</td>
+                                                {% else %}
+                                                <td>administrator</td>
+                                                {% endif %}
+                                                <td> <input type="text" name="requestid" value = {{request.id}} hidden>
+                                                    <input type="text" name="userid" value = {{user.id}} hidden>
+                                                  <button type="submit"  id="view" name="btnAcceptRole" class="btn btn-success" style="margin-left:0px;background-color:#FF5733; font-size: 8px; margin-top: -20px;">approve</button> 
+                                                  <button type="submit"  id="view" name="btnDeclineRole" class="btn btn-success" style="margin-left:0px;background-color:#FF5733;font-size: 10px; margin-top: -10px; margin-left:;font-size: 9px">decline</button> 
+                                              </td>
                                             </tr>
-                                            <tr>
-                                                <td>Event Name</td>
-                                                <td>(insert number) Attendees</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Event Name</td>
-                                                <td>(insert number) Attendees</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Event Name</td>
-                                                <td>(insert number) Attendees</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Event Name</td>
-                                                <td>(insert number) Attendees</td>
-                                            </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% endif %}
+                                           {% endfor %}
+                                            </form>
+                                          
                                         </tbody>
                                     </table>
                                 </div>
@@ -271,18 +277,17 @@
             <!-- END STATISTIC CHART-->
 
             <!-- DATA TABLE-->
-            <section class="p-t-20">
-                <div class="container">
+            <section class="p-t-20" ">
+                <div class="container" style="width: 50%; margin-top: -37%; margin-left:40%; height: 500px; width: 500px>
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="title-5 m-b-35">data table</h3>
+                             <h3 class="title-3 m-b-30">Event requests</h3>
                             <div class="table-data__tool">
                                 <div class="table-data__tool-left">
                                     
                                 </div>
                                 <div class="table-data__tool-right">
-                                    <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                        <i class="zmdi zmdi-plus"></i>add Event</button>
+                                    
             
                                 </div>
                             </div>
@@ -295,39 +300,42 @@
                                             <th>event Type</th>
                                             <th>description</th>
                                             <th>date</th>
-                                            <th>upvotes</th>
-                                            <th>reviews</th>
+                                          
                                             <th></th>
                                         </tr>
 
 
                                     </thead>
                                     <tbody>
-                                      
+                                      {% for request in requests%}
+                                       
                                         <tr class="tr-shadow">
-                                            <td>
+                                            <td style="margin-bottom: 200px">
+                                             {% if request.req_type == 2 %}
+                                                 {% for event in events %}
+                                                 {% if event.id == request.event.id%}
                                                 <label class="au-checkbox">
-                                                    <input type="checkbox">
-                                                    <span class="au-checkmark"></span>
+                                                  <button type="submit"  id="view" name="btnAcceptEvent" class="btn btn-success" style="margin-left:0px;background-color:#FF5733; font-size: 8px; margin-left: -35%">approve</button> 
+                                                  <button type="submit"  id="view" name="btnDeclineEvent" class="btn btn-success" style="margin-left:0px;background-color:#FF5733;font-size: 10px; margin-top: -90%; margin-left: 40%">decline</button> 
+                                                   
                                                 </label>
+                                                
                                             </td>
-                                            <td><!-- Event Name --> oten</td>
-                                            <td> oten sad </td>
-                                             <td> oten sad </td>
-                                             <td> oten sad </td>
-                                             <td> oten sad </td>
                                            
-                                                <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                        <i class="zmdi zmdi-delete"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                                            <td> {{event.name}} oten</td>
+                                            <td> {{event.etype}} oten</td>
+                                             <td> {{event.description}} oten</td>
+                                             <td> {{event.date_start}} oten</td>
+                                            {% endif %}
+                                             {% endfor%}
+                                            }
+                                            {% endif %}
+                                           
+                                               
+                                            
                                         </tr>
-                                        <tr class="spacer"></tr>
+                                        {% endfor %}
+                                       
                                         
                                     </tbody>
                                 </table>
@@ -338,8 +346,9 @@
             </section>
             <!-- END DATA TABLE-->
         </div>
-
+ <div style="height: 100px"></div>
     </div>
+
 
     <!-- Jquery JS-->
     <script src="{% static 'vendor/jquery-3.2.1.min.js %'}"></script>

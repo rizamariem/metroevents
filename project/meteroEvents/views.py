@@ -18,7 +18,6 @@ class login(View):
 		if request.method == 'POST':
 			if 'btnLogin' in request.POST:
 				form = loginForm(request.POST, request.FILES)
-
 				if form.is_valid():
 					usern = request.POST.get("username")
 					password = request.POST.get("password")
@@ -47,15 +46,18 @@ class login(View):
 								participants = Participants.objects.all()
 								events = Events.objects.all()
 								reviews = Reviews.objects.all()
+								requests = Requests.objects.all()
 								context = {
 								'events': events,
 								'participants': participants,
 								'users': users,
 								'user_info': user_info,
 								'organizers': organizers,
-								'reviews': reviews
+								'reviews': reviews,
+								'requests' : requests,
 								}
 								return render(request, 'admin.html', context)
+							
 						else:
 							return HttpResponse('invalid input')
 				else:
@@ -104,7 +106,7 @@ class login(View):
 				form = loginForm(request.POST, request.FILES)
 				u_id = request.POST.get("userid")
 				user = Users.objects.get(id = u_id)
-				a = bool(Requests.objects.filter(user = u_id, req_role = 1))
+				a = bool(Requests.objects.filter(user = u_id, req_role = 1, response = 2))
 				if a == False:
 					form = Requests(req_type = 1, user = user, req_role = 1)
 					form.save()
@@ -116,13 +118,40 @@ class login(View):
 				form = loginForm(request.POST, request.FILES)
 				u_id = request.POST.get("userid")
 				user = Users.objects.get(id = u_id)
-				a = bool(Requests.objects.filter(user = u_id, req_role = 2))
+				a = bool(Requests.objects.filter(user = u_id, req_role = 2, response = 2))
 				if a == False:
 					form = Requests(req_type = 1, user = user, req_role = 2)
 					form.save()
 					return HttpResponse('Request for becoming administrator sent')
 				else:
 					return HttpResponse('Request already sent, please send again after 24 hours')
+			
+			elif 'btnAcceptRole' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				req_id = request.POST.get("requestid")
+				user = request.POST.get("userid")
+				r = Requests.objects.get(id = req_id)
+				u = Users.objects.get(id = user)
+				req = Requests.objects.filter(id = req_id).delete()
+				if r.req_role == 1:
+					form = Organizers(user_id = u)
+					form.save
+					u = Users.objects.filter(id = user).update(role = 2)
+				else:
+					form = Administrator(user = u)
+					form.save
+					u = Users.objects.filter(id = user).update(role = 3)
+
+				return HttpResponse('Request approved')
+
+			elif 'btnDeclineRole' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				req_id = request.POST.get("requestid")
+				user = request.POST.get("userid")
+				r = Requests.objects.filter(id = req_id).update(response = 0)
+				return HttpResponse('Request approved')
+
+
 
 				
 	
