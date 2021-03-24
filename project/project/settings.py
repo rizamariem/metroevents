@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['*']
 
 STATICFILES_DIRS = [
     "C:/Users/Valued Client/Desktop/project/group4ME/static",
-    "C:/Users/Paña Family/Documents/GitHub/Group4ME/group4ME/static",
+    "C:/Users/Paña Family/Documents/GitHub/SIA/static",
 ]
 # Application definition
 
@@ -86,7 +86,7 @@ DATABASES = {
         # 'HOST': 'group4-1.mysql.database.azure.com',
         # 'PORT': '3306',
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'metro',
+        'NAME': 'metroevents',
         'USER': 'root',
         'Password': 'root',
         'HOST': '127.0.0.1',
@@ -140,7 +140,7 @@ CORS_ALLOW_CREDENTIALS = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
-#MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
