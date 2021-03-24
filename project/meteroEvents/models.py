@@ -83,29 +83,6 @@ class Requests(models.Model):
 	class Meta:
 		db_table = "Requests"
 
-class Requesttoadmin(models.Model):
-	user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
-	req_time = models.TimeField(auto_now=False, auto_now_add=False)
-	description = models.CharField(max_length = 100)
-
-	class Meta:
-		db_table = "Requesttoadmin"
-
-class Requesttoorg(models.Model):
-	user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
-	req_time = models.TimeField(auto_now=False, auto_now_add=False)
-	description = models.CharField(max_length = 100)
-
-	class Meta:
-		db_table = "Requesttoorg"
-
-class Requesttopart(models.Model):
-	user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
-	req_time = models.TimeField(auto_now=False, auto_now_add=False)
-	description = models.CharField(max_length = 100)
-
-	class Meta:
-		db_table = "Requesttopart"
 
 class Reviews(models.Model):
 	user_id = models.ForeignKey('Users', on_delete=models.CASCADE)

@@ -113,6 +113,15 @@
                         <label class="tx-11 font-weight-bold mb-0 ">Role:</label>
                          {% if user.role == 1 %}
                         <p class="text-muted">user</p>
+                        {% for user in user_info%}
+                      
+                        <form action="" id="updateForm" method="post"> 
+                                {% csrf_token %}
+                        <input type="text" name="userid" value = {{user.id}} hidden>
+                        <button type="submit"  id="btnReqOrg" name="btnReqOrg" class="btn btn-success" style="margin-left:-13px;color:#FF5733;border: none;  background-color: Transparent;outline: none; cursor:pointer;">Request for Organizer</button> 
+                         <button type="submit"  id="btnReqAdmin" name="btnReqAdmin" class="btn btn-success" style="margin-left:-13px;color:#FF5733;border: none;  background-color: Transparent;outline: none; cursor:pointer;">Request for Admin</button> 
+                           {% endfor %}
+                        </form>
                         {% endif %}
                     </div>
                 </div>
@@ -120,7 +129,7 @@
         </div>
                 
 
-        <!-- left wrapper end -->
+  {% for event in events %}        <!-- left wrapper end -->
         <!-- middle wrapper start -->
         <div class="col-md-8 col-xl-6 middle-wrapper">
             <div class="row">
@@ -131,12 +140,14 @@
                                 <div class="d-flex align-items-center">
                                     <div class="ml-2">
                                         
-                                        <!--<p class="tx-11 text-muted">1 min ago</p>-->
+                                       <!--<p class="tx-11 text-muted">1 min ago</p>-->
                                     </div>
                                 </div>
                             </div>
                         </div>
-{% for event in events %}          
+
+
+        
                         <div class="card-body">
                             <p><b>{{event.name}}</b></p>
                          <!--   <img class="img-fluid" src="{% static 'images/event1.jpg' %}"> --> 
@@ -176,14 +187,14 @@
                                     <form action="" id="updateForm" method="post"> 
                                          {% csrf_token %}
                                            <input type="text" name="eventid" value = {{event.id}} hidden>
-                                  <button  type="submit" id="btnUpvote" name="btnUpvote"  class="btn btn-success" style="border: none; background-color: Transparent; outline: none ; color: black"> upvote</button>
+                                  <button  type="submit" id="btnUpvote" name="btnUpvote"  class="btn btn-success" style="border: none; background-color: Transparent; outline: none ; color: black; margin-top: -8%"> upvote</button>
                                    </a>
                                    
                                     </form>
                                   
                                 
                                
-                                <p class="mb-3 tx-14" style ="margin-top: -8%; margin-left: -25%"><b>Descriptions:</b> {{ event.description }}</p> 
+                                <p class="mb-3 tx-14" style ="margin-top: -8%; margin-left: -30%"><b>Descriptions:</b> {{ event.description }}</p> 
                                  
                 {% endif %}
             {% endfor%}
@@ -195,7 +206,7 @@
                          <input type="text" name="userid" value = {{user.id}} hidden>
 
                                     <button type="submit" name="btnJoin"  style="background-color:#FF5733; border: none; color: white; border-radius: 5px; margin-top: -40%; ">+ Join Event</button>
-                                    <button type="submit" name="btnCancel"  style="background-color:#FF5733; border: none; color: white; border-radius: 5px;">+ Cancel</button>
+                                    <button type="submit" name="btnCancel"  style="background-color:#FF5733; border: none; color: white; border-radius: 5px;"> Cancel</button>
                                 </form>
                                      <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal-{{event.id}}" style="font-size: 14px; vertical-align: center color: blue; margin-top:  0px; color: white; margin-left: 3%; margin-right: -20%; height: 27px; width: 80px ">Reviews</a>
                                 </a>
@@ -205,9 +216,7 @@
                 </div>
 
                 
-                <div class="col-md-12">
-                    <br>
-                </div>
+                
 
             </div>
         </div>
@@ -251,6 +260,8 @@
             </div>
         </div>
     </div>
+
+
     {% endfor%}  
 {% endfor %}
 
@@ -348,8 +359,6 @@
         <!-- right wrapper end -->
          </div>
     </div>
-</div>
-</div>
 </body>
 </html>
 

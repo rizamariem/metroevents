@@ -85,6 +85,31 @@ class login(View):
 				user = Users.objects.get(id = u_id)
 				cancel = Requests.objects.filter(user = user, event = event).delete()
 				return HttpResponse('Request cancelled')
+
+			elif 'btnReqOrg' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				u_id = request.POST.get("userid")
+				user = Users.objects.get(id = u_id)
+				a = bool(Requests.objects.filter(user = u_id, req_role = 1))
+				if a == False:
+					form = Requests(req_type = 1, user = user, req_role = 1)
+					form.save()
+					return HttpResponse('Request for becoming organizer sent')
+				else:
+					return HttpResponse('Request already sent, please send again after 24 hours')
+
+			elif 'btnReqAdmin' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				u_id = request.POST.get("userid")
+				user = Users.objects.get(id = u_id)
+				a = bool(Requests.objects.filter(user = u_id, req_role = 2))
+				if a == False:
+					form = Requests(req_type = 1, user = user, req_role = 2)
+					form.save()
+					return HttpResponse('Request for becoming administrator sent')
+				else:
+					return HttpResponse('Request already sent, please send again after 24 hours')
+
 				
 	
 class register(View):

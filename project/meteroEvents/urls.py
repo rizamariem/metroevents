@@ -8,6 +8,7 @@ urlpatterns = [
 	path('register', views.register.as_view(), name = "register"),
 	path('register_event', views.registerEvent.as_view(), name = "registerEvent"),
 	#path('feed', views.FeedIndexView.as_view(), name="feed"),
+	path('org_feed', views.organizerFeed.as_view(), name="org_feed"),
 	#path('feed', views.feed.as_view(), name = "feed"),
 	#path('medicine/registration', views.RegistrationIndexView.as_view(), name="medicine_registration_view"),
 	#path('customer/registration', views.CustomerRegistrationView.as_view(), name= "customer_registration_view"),
