@@ -186,7 +186,7 @@
                                     
                                     <form action="" id="updateForm" method="post"> 
                                          {% csrf_token %}
-                                           <input type="text" name="eventid" value = {{event.id}} hidden>
+                                           <input type="text" name="upvote" value = {{event.id}} hidden><input type="text" name="eventid" value = {{event.upvote|add:"1"}} hidden>
                                   <button  type="submit" id="btnUpvote" name="btnUpvote"  class="btn btn-success" style="border: none; background-color: Transparent; outline: none ; color: black; margin-top: -8%"> upvote</button>
                                    </a>
                                    
@@ -245,7 +245,7 @@
        
                     </div>
                      </form>
-                      <form action"" method="post">
+                      <form action method="post">
                             {% csrf_token %}
                    <input type="text" name="eventid" value = {{event.id}} hidden>
                    <input type="text" name="userid" value = {{user.id}} hidden>

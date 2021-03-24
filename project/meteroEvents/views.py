@@ -49,10 +49,11 @@ class login(View):
 			elif 'btnUpvote' in request.POST:
 				form = loginForm(request.POST, request.FILES)
 				e_id = request.POST.get("eventid")
+				uv = request.POST.get("upvote")
 				upvote = Events.objects.values_list('upvote', flat=True).filter(id =e_id)
 				a = upvote
 				b =1
-				event = Events.objects.filter(id = e_id).update(upvote = 1)
+				event = Events.objects.filter(id = e_id).update(upvote = uv)
 				return HttpResponse('upvoted')
 	
 
