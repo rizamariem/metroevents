@@ -184,8 +184,8 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--green">
-                                <h2 class="number">(insert number)</h2>
-                                <span class="desc">members</span>
+                                <h2 class="number">{{users|length}}</h2>
+                                <span class="desc">users signed in</span>
                                 <div class="icon">
                                     <i class="zmdi zmdi-account-o"></i>
                                 </div>
@@ -193,8 +193,8 @@
                         </div>
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--orange">
-                                <h2 class="number">(insert number)</h2>
-                                <span class="desc">events attended</span>
+                                <h2 class="number">{{events|length}}</h2>
+                                <span class="desc">upcoming events</span>
                                 <div class="icon">
                                     <i class="zmdi zmdi-shopping-cart"></i>
                                 </div>
@@ -231,7 +231,7 @@
                             <h3 class="title-5 m-b-35">statistics</h3>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="width: 200px">
                         <div class="col-md-6 col-lg-4">
                             <!-- TOP CAMPAIGN-->
                             <div class="top-campaign">
@@ -265,6 +265,42 @@
                             </div>
                             <!-- END TOP CAMPAIGN-->
                         </div>
+
+                        <div class="row">
+                        <div class="col-md-6 col-lg-4">
+                            <!-- TOP CAMPAIGN-->
+                            <div class="top-campaign">
+                                <h3 class="title-3 m-b-30">top Events</h3>
+                                <div class="table-responsive">
+                                    <table class="table table-top-campaign">
+                                        <tbody>
+                                            <tr>
+                                                <td>Event Name</td>
+                                                <td>(insert number) Attendees</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Event Name</td>
+                                                <td>(insert number) Attendees</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Event Name</td>
+                                                <td>(insert number) Attendees</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Event Name</td>
+                                                <td>(insert number) Attendees</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Event Name</td>
+                                                <td>(insert number) Attendees</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- END TOP CAMPAIGN-->
+                        </div>
+                    </div>
                     </div>
                 </div>
             </section>
