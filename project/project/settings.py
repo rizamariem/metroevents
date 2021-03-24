@@ -86,7 +86,7 @@ DATABASES = {
         # 'HOST': 'group4-1.mysql.database.azure.com',
         # 'PORT': '3306',
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'metroevents',
+        'NAME': 'metro',
         'USER': 'root',
         'Password': 'root',
         'HOST': '127.0.0.1',
