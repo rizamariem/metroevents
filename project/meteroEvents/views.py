@@ -194,6 +194,6 @@ class registerEvent(View):
 			return HttpResponse(' not Valid')
 
 
-class organizerFeed(View):
+class adminFeed(View):
 	def get(self, request):
-		return render(request,'organizerfeed.html')
+		return render(request,'admin.html')
