@@ -111,99 +111,103 @@
             </div>
         </div>
    
-
-    <!-- left wrapper end -->
+<!-- left wrapper end -->
         <!-- middle wrapper start -->   
-            {% for event in events %}
+           
             <div class="col-md-8 col-xl-6 middle-wrapper">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 grid-margin">
+
+                    {% for event in events %}
+
                     <div class="card rounded">
-                        <div class="card-header">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <div class="ml-2">
+                          <table>
+                            <div class="card-header">
+                                <div class="ml-2">
                                     <p><b>{{event.name}}</b></p>
-                                  </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card-body">
-                            <center>  <img class="img-fluid" src="{{event.image.url}}"  style=" height:300px"></center>
-                           
-                            <p class="mb-3 tx-14"></p>
+                            <div class="card-body">
+                                    <img class="img-fluid" src="{{event.image.url}}" height="300px;">
+                                    <p></p>
+                                    {% for organizer in organizers%}
+                                      {% if organizer.id == event.organizer_id.id %}
+                                        {% for user in users%}
+                                          {% if user.id == organizer.user_id.id %}
 
-                            {% for organizer in organizers%}
-                                {% if organizer.id == event.organizer_id.id %}
-                                    {% for user in users%}
-                                        {% if user.id == organizer.user_id.id %}
-                           <b>  {{user.firstname}} {{user.lastname}} </b> 
-                            <p >{{event.date_start}}  - {{ event.date_end }}</p> 
-                             
-                            <div style="margin-top: -3%"> {{ event.description }}</div> 
-                        </div>
-                        
+                                     <p> {{user.firstname}} {{user.lastname}} </p>
+                                     <p> {{event.date_start}}  - {{ event.date_end }} </p>
+                                     <p> {{ event.description }} </p>
+                                     
+                            </div>
 
-                        <div class="card-footer">
-                            <div class="d-flex post-actions">
-                                  
-                                <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
+                            <div class="card-footer">
+                                <div class="d-flex post-actions">
+                                    <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
                                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                     </svg>
-                               
-                                    <p class="d-none d-md-block ml-2">
-                                        <form action="" id="updateForm" method="post"> 
+
+                                   <p class="d-none d-md-block ml-2">
+                                    <form action="" id="updateForm" method="post"> 
                                          {% csrf_token %}
                                         <input type="text" name="eventid" value = {{event.id}} hidden>
                                          <input type="text" name="upvote" value = {{event.upvote|add:1}} hidden>
                                         <button  type="submit" id="btnUpvote" name="btnUpvote"  class="btn btn-success" style="border: none; background-color: Transparent; outline: none ; color: black;"> upvote</button>
                                     
                                     </form>
-                                    
-                                            {% endif %}
-                                        {% endfor%}
-                                    {% endif %}
-                                {% endfor %}    
-                                    </p>
-                                </a> 
 
-                            <a>
-                                <p class="d-none d-md-block ml-2">
-                                <form id="" method="post">
-                                {% csrf_token %}
-                                <input type="text" name="eventid" value = {{event.id}} hidden>
-                                 <input type="text" name="userid" value = {{user.id}} hidden>
+                                                    {% endif %}
+                                                {% endfor%}
+                                            {% endif %}
+                                        {% endfor %} 
+                                    </p>
+                                    </a>   
+
+                                    <a>
+                                    <p class="d-none d-md-block ml-2">
+                                    <form id="" method="post">
+                                        {% csrf_token %}
+                                        <input type="text" name="eventid" value = {{event.id}} hidden>
+                                         <input type="text" name="userid" value = {{user.id}} hidden>
 
                                     <button type="submit" name="btnJoin"  style="background-color:#FF5733; border: none; color: white; border-radius: 5px; margin-top: -40%; ">+ Join Event</button>
                                     <button type="submit" name="btnCancel"  style="background-color:#FF5733; border: none; color: white; border-radius: 5px;"> Cancel</button>
-                                </form>
-                                     <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal-{{event.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; margin-top:  15px; color: white; border: none; margin-left: 3%; height:27px; width: 80px; ">Reviews</a>
-                                </p>
-                            </a>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                                    </form>
+                                    </p>
+                                    </a>
 
+                                    <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal-{{event.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; color: white; border: none; margin-left: 3%; margin-right: -20%; height: 27px;">Reviews
+                                    </a>
+                                </div>
+                            </div>
+                               
+                        </div>
+                      
+                    </div>
+
+                </div> 
+                    </table>                 
+            </div>
+         
+<br>
+ 
     
 
 
 <div class="modal fade" id="newModal-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
-                      <div class="modal-content" style="background-color: #f0f0f0">
-                        <div class="modal-header" style="background-color:#FF5733">
-                          <h5 class="modal-title" style="color: white">{{event.name}} Reviews</h5>
+                      <div class="modal-content">
+                        <div class="modal-header" style="background: #2b353b;">
+                          <h5 class="modal-title" style="color:#FF5733;">{{event.name}} Reviews</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
                         <form id="" method="post">
                             {% csrf_token %}
-                    <div class="modal-body" style="height: 40%; overflow: auto">  
+                    <div class="modal-body" style="background: #2b353b; color: #a3aaae;">  
                         <input type="text" name="eventid" value = {{event.id}} hidden>
                             {% for review in reviews %}
                             
@@ -215,15 +219,19 @@
        
                     </div>
                      </form>
-                      <form action="" method="post">
+                      <form action="" method="post" style="background: #2b353b; color: #a3aaae;">
                             {% csrf_token %}
                    <input type="text" name="eventid" value = {{event.id}} hidden>
                    <input type="text" name="userid" value = {{user.id}} hidden>
-                    <input type="text" name="review" value ="" placeholder="type here.." style="margin-left: 10%; margin-top: 10%; width: 60%">
-                    <div class="modal-footer">
+                    <input type="text" name="review" value ="" placeholder="Type Here.." style="margin-left: 10%; margin-top: 10%; width: 60%">
 
-                            <button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733">publish</button> 
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">cancel</button>
+                     <br>
+                     <br>
+
+                    <div class="modal-footer" style="background: #2b353b;">
+
+                            <button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733; border: none;">Publish</button> 
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">Cancel</button>
                         </div>
                     </form>
                
@@ -234,10 +242,11 @@
 
     {% endfor%}  
 {% endfor %}
+</div>
 
-      <div class="d-none d-xl-block col-xl-3 right-wrapper">
-            <div class="row profile-body">
-                <div class="col-md-12 grid-margin">
+      <div style="margin-top: 0; margin-left: 105%;  position: absolute;">
+            <div class="row" style="width: 255px;">
+                <div>
                     <div class="card rounded">
                         <div class="card-body">
                             <h6 class="card-title"><b>Upcoming Events</b></h6>
@@ -268,25 +277,29 @@
                     </div>
                 </div>
             </div>
-       
 
                 <br>
 
-                <div class="col-md-12 grid-margin">
+                <div>
                     <div class="card rounded">
                         <div class="card-body">
                             <h6 class="card-title">Pending Requests</h6>
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center hover-pointer">
-                                    <img class="img-xs rounded-circle" src="{% static 'images/organizer.png' %}"> 
-                                    <div class="ml-2">
+                            <div class="up-events">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <img class="img-xs rounded-circle" src="{% static 'images/organizer.png' %}">
+                                    </div> 
+                                    <div class="col-md-12">
                                         <p style="font-size: 13px;">Request for organizer</p>
                                         <p class="text-muted" style="font-size: 12px;">Not Viewed</p>
                                     </div>
+                                    
+                                    <div class="col-md-12">
+                                        <button class="btn btn-icon">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <button class="btn btn-icon">
-                                    <i class="fa fa-eye"></i>
-                                </button>
                             </div>
 
                         </div>
@@ -295,7 +308,7 @@
 
                 <br>
 
-                <div class="col-md-12 grid-margin">
+                <div>
                     <div class="card rounded">
                         <div class="card-body">
                             <h6 class="card-title"><b>History</b></h6>
@@ -306,9 +319,9 @@
                                         <p class="text-muted" style="font-size: 13px;"> Thursday, January 26, 2021</p>
                                         <p class="text-muted" style="font-size: 13px;"> 9:30AM - 11:30 AM</p>
                                         <hr>
-                                    </div>
+                                    </div class="col-md-12">
 
-                                    <div class="col-md-12">
+                                    <div>
                                         <p class="text-muted" style="font-size: 13px;">Sustainable Resource Orientation</p>
                                         <p class="text-muted" style="font-size: 13px;"> Saturday, February 2, 2021</p>
                                         <p class="text-muted" style="font-size: 13px;"> 9:30AM - 11:30 AM</p>
@@ -320,11 +333,8 @@
             </div>
 
 
-         </div>
+       </div>
     </div>
-
-
-</div>
 
 
 
