@@ -149,10 +149,10 @@
                                 {% if organizer.id == event.organizer_id.id %}
                                     {% for user in users%}
                                         {% if user.id == organizer.user_id.id %}
-                            <p><b>Host:</b>   {{user.firstname}} {{user.lastname}}</p>
-                            <p ><b>Start:</b> {{event.date_start}}</p> 
-                            <p><b>End:</b> {{ event.date_end }}</p>
-                            <p><b>Descriptions:</b> {{ event.description }}</p> 
+                           <b>  {{user.firstname}} {{user.lastname}} </b> 
+                            <p >{{event.date_start}}  - {{ event.date_end }}</p> 
+                             
+                            <div style="margin-top: -3%"> {{ event.description }}</div> 
                         </div>
                         
 
