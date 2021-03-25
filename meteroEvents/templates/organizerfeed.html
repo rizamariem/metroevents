@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                     {% for user in user_info %}
+     {% for user in user_info %}
                     <p>{{user.firstname}}  {{user.lastname}}</p>
                    
                     <div class="mt-3">
@@ -127,7 +127,7 @@
 
         <!-- left wrapper end -->
         <!-- middle wrapper start -->
-         {% for event in events %}
+ {% for event in events %}
             <div class="col-md-8 col-xl-6 middle-wrapper">
             <div class="row">
                 <div class="col-md-12">
@@ -279,7 +279,7 @@
 
                                     <div class="col-md-12">
                                          <center>
-                                            <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#requestModal-{{requests.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; color: white; border: none; width: 150px;">Pending Requests</a>
+                                            <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventRequestModal-{{requests.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; color: white; border: none; width: 150px;">Pending Request </a>
                                         </center>
                                         <br>
                                     </div>
@@ -290,7 +290,7 @@
                                     <div class="col-md-12">
                                         <center>
 
-                                            <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal-{{participants.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; color: white; border: none; width: 150px;"> Pending Approval</a>
+                                            <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#approvalModal-{{participants.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; color: white; border: none; width: 150px;"> Participant approval</a>
                                             <br>
                                       </center>
                                     </div>
@@ -472,17 +472,12 @@
                          <a style="color: white">Past </a>
                         <table style="width:100%; color:white; ; padding: 5px;">
                            <thead>
-                           
-                           
                                         <tr>
                                             <th>Name</th>
                                              <th>Type</th>
                                              <th> Venue</th>
                                              <th>Date</th>
                                         </tr>
-                                        
-
-
                             </thead>
                          
                           {% for user in user_info%}
@@ -515,7 +510,7 @@
 
 
 <!-- REQUESTS MODAL-->
-<div class="modal fade" id="requestModal-{{requests.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+<div class="modal fade" id="eventRequestModal-{{requests.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                       <div class="modal-content">
                         <div class="modal-header" style="background: #2b353b;">
@@ -525,16 +520,93 @@
                           </button>
                         </div>
                         
-                    <div class="modal-body" style="height: 40%; overflow: auto; background: #2b353b; color: #a3aaae;">  
+                 <div class="modal-body" style="height: 40%; overflow: auto; background: #2b353b; color: #a3aaae;">  
                         <table style="color:white;">
-                          </tr>
-                          <tr>
-                            <td style="padding-right: 100px;">Name:</td>
-                            <td style="padding-right: 100px;">Venue:</td>
-                            <td style="padding-right: 100px;">Date:</td>
-                            <td style="padding-right: 100px;">Start:</td>
-                          </tr>
+                          
+                          <thead>
+
+                            <td style="padding-right: px;">Event name</td>
+                            <td style="padding-right: 100px;">Venue</td>
+                            <td style="padding-right: 100px;">Start Date</td>
+                            <td style="padding-right: 100px;">Target Location</td>
+                          </thead>
+                            {% for user in user_info%}
+                            {% for request in requests %}
+                            {% if request.user.id == user.id  and request.req_type == 3 and request.response == 2%}
+                          
+                                {% for event in events%}
+                                 
+                                    {% if request.event.id == event.id%}
+                                    <tr>
+                                        <td style="padding-right: 100px;">{{event.name}}</td>
+                                        <td style="padding-right: 100px;">{{event.venue}}</td>
+                                        <td style="padding-right: 100px;">{{event.date_start}}</td>
+                                        <td style="padding-right: 100px;">{{event.targetLocation}}</td>
+                                    
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
                         </table>
+                        
+         
+                        
+                           
+                    <div class="modal-footer" style="background: #2b353b;">
+
+                            
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">Close</button>
+                     </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="approvalModal-{{requests.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background: #2b353b;">
+                          <h5 class="modal-title" style="color:#FF5733;">Pending Requests</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        
+                 <div class="modal-body" style="height: 40%; overflow: auto; background: #2b353b; color: #a3aaae;">  
+                        <table style="color:white;">
+                          
+                          <thead>
+
+                            <td style="padding-right: px;">wala</td>
+                            <td style="padding-right: 100px;">Venue</td>
+                            <td style="padding-right: 100px;">Start Date</td>
+                            <td style="padding-right: 100px;">Target Location</td>
+                          </thead>
+                            {% for user in user_info%}
+                            {% for request in requests %}
+                            {% if request.user.id == user.id  and request.req_type == 3 and request.response == 2%}
+                          
+                                {% for event in events%}
+                                 
+                                    {% if request.event.id == event.id%}
+                                    <tr>
+                                        <td style="padding-right: 100px;">{{event.name}}</td>
+                                        <td style="padding-right: 100px;">{{event.venue}}</td>
+                                        <td style="padding-right: 100px;">{{event.date_start}}</td>
+                                        <td style="padding-right: 100px;">{{event.targetLocation}}</td>
+                                    
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </table>
+                        
+         
                         
                            
                     <div class="modal-footer" style="background: #2b353b;">
@@ -542,7 +614,7 @@
                             <button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733; border: none;">Publish</button> 
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">Cancel</button>
                      </div>
-            </div>
+                </div>
         </div>
     </div>
 </div>
