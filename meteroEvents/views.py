@@ -211,6 +211,11 @@ class login(View):
 				form1.save()
 				return HttpResponse('Event request sent to admin')
 
+			elif 'btnApproveJoin' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				req_id = request.POST.get("requestid")
+				user = request.POST.get("userid")
+				event_id = request.POST.get("eventid")
 
 		
 

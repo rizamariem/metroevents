@@ -579,34 +579,48 @@
                         <table style="color:white;">
                           
                           <thead>
-
-                            <td style="padding-right: px;">wala</td>
-                            <td style="padding-right: 100px;">Venue</td>
-                            <td style="padding-right: 100px;">Start Date</td>
-                            <td style="padding-right: 100px;">Target Location</td>
+                             <th style="padding-right: 50px;">Count</th>
+                            <th style="padding-right: 150px;">Name</th>
+                            <th style="padding-right: 100px;">Event</th>
+                            <th style="padding-right: 100px;">Venue</th>
+                           
                           </thead>
-                            {% for user in user_info%}
-                            {% for request in requests %}
-                            {% if request.user.id == user.id  and request.req_type == 3 and request.response == 2%}
-                          
-                                {% for event in events%}
+                            
+                    {% for request in requests %}
+                        {% if request.req_type == 1 and request.response == 2 %}
+                                {% for event in events %}
                                  
-                                    {% if request.event.id == event.id%}
+                                    {% if event.id == request.event.id %}
+                                    <form action="" id="updateForm" method="post"> 
+                                         {% csrf_token %} 
                                     <tr>
+                                        {% for user in users%}
+                                            {% if user.id == request.user.id %}
+                                            <td style="padding-right: 100px;">{{user|length|add:1}}</td>
+                                        <td style="padding-right: 100px;">{{user.firstname}} {{user.lastname}}</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <input type="text" name="requestid" value = {{request.id}} hidden>
+                                                <input type="text" name="userid" value = {{user.id}} hidden>
                                         <td style="padding-right: 100px;">{{event.name}}</td>
                                         <td style="padding-right: 100px;">{{event.venue}}</td>
-                                        <td style="padding-right: 100px;">{{event.date_start}}</td>
-                                        <td style="padding-right: 100px;">{{event.targetLocation}}</td>
+                                        <td> <button type="submit"  id="view" name="btnApproveJoin" class="btn btn-success" style="margin-left:0px;background-color:#FF5733; font-size: 8px; margin-left: -50px;">approve</button> 
+                                                  <button type="submit"  id="view" name="btnDeclineJoin" class="btn btn-success" style="margin-left:0px;background-color:#FF5733;font-size: 10px; margin-top: ; margin-left:;font-size: 9px">decline</button> 
+                                        </td>
+                                       
                                     
                                     </tr>
+                                </form>
                                     {% endif %}
-                                {% endfor %}
-                            {% endif %}
+                               
+
                             {% endfor %}
-                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                            
                         </table>
                         
-         
+         <br><br><br>
                         
                            
                     <div class="modal-footer" style="background: #2b353b;">
