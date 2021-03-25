@@ -127,7 +127,7 @@ class login(View):
 				user = Users.objects.get(id = u_id)
 				a = bool(Requests.objects.filter(user = u_id, req_role = 1, response = 2))
 				if a == False:
-					form = Requests(req_type = 1, user = user, req_role = 1)
+					form = Requests(req_type = 2, user = user, req_role = 1)
 					form.save()
 					return HttpResponse('Request for becoming organizer sent')
 				else:
@@ -139,7 +139,7 @@ class login(View):
 				user = Users.objects.get(id = u_id)
 				a = bool(Requests.objects.filter(user = u_id, req_role = 2, response = 2))
 				if a == False:
-					form = Requests(req_type = 1, user = user, req_role = 2)
+					form = Requests(req_type = 2, user = user, req_role = 2)
 					form.save()
 					return HttpResponse('Request for becoming administrator sent')
 				else:
@@ -174,14 +174,18 @@ class login(View):
 				form = loginForm(request.POST, request.FILES)
 				req_id = request.POST.get("requestid")
 				user = request.POST.get("userid")
+				event_id = request.POST.get("eventid")
 				req = Requests.objects.filter(id = req_id).update(response = 1)
+				r = Events.objects.filter(id = event_id).update(isApproved = 1)
 				return HttpResponse('Event approved')
 
 			elif 'btnDeclineEvent' in request.POST:
 				form = loginForm(request.POST, request.FILES)
 				req_id = request.POST.get("requestid")
 				user = request.POST.get("userid")
-				req = Requests.objects.filter(id = req_id).update(response = 1)
+				event_id = request.POST.get("eventid")
+				req = Requests.objects.filter(id = req_id).update(response = 0)
+				r = Events.objects.filter(id = event_id).update(isApproved = 0)
 				return HttpResponse('Event declined')
 
 			elif 'btnAddEvent' in request.POST:
@@ -200,11 +204,14 @@ class login(View):
 				form = Events( organizer_id = organizer , etype = etype, name = name, 
 					venue = venue, date_start = startdate,date_end= enddate, image = image,
 					description = description, targetLocation = target)
-					#form.save()
-					#user = Users.objects.get(id = organizer.id)
-					#form = Requests(user = user, event = )
-					#form = Requests()
-				return HttpResponse(form.organizer_id)
+				form.save()
+				event = Events.objects.all().last()
+				user = Users.objects.get(id = organizer.user_id.id)
+				form1 = Requests(user = user, event = event, req_type = 3)
+				form1.save()
+				return HttpResponse('Event request sent to admin')
+
+
 		
 
 

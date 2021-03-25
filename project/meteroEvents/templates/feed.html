@@ -123,13 +123,14 @@
                     <div class="card rounded">
                           <table>
                             <div class="card-header">
-                                <div class="ml-2">
-                                    <p><b>{{event.name}}</b></p>
-                                </div>
+                                <div style="vertical-align: bottom;"> <b>{{event.name}}</b></div>
+                                   
+                                
                             </div>
 
-                            <div class="card-body">
-                                    <img class="img-fluid" src="{{event.image.url}}" height="300px;">
+                            <div class="card-body"  >
+                                <center>  <img class="img-fluid" src="{{event.image.url}}" style="height:250px;" ></center>
+                                   
                                     <p></p>
                                     {% for organizer in organizers%}
                                       {% if organizer.id == event.organizer_id.id %}

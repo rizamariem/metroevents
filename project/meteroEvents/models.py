@@ -37,7 +37,7 @@ class Events(models.Model):
 	date_end = models.DateField(auto_now=True)
 	image = models.FileField(upload_to ='media', default= 'default.jpg', blank = True, null = True)
 	video = models.FileField(upload_to ='media', default= 'default.jpg', blank = True, null = True)
-	isApproved = models.BinaryField(default = 0)
+	isApproved = models.IntegerField(default = 0)
 	cancellationDate = models.DateField(auto_now=False, null = True)
 	description = models.CharField(max_length = 100, null = True)
 	targetLocation = models.CharField(max_length = 20,null = True)
