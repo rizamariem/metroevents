@@ -88,22 +88,37 @@
                             </div>
                         </div>
                     </div>
-                    <p>Hi! My name is chuchu.</p>
+                     {% for user in user_info %}
+                    <p>{{user.firstname}}  {{user.lastname}}</p>
+                   
                     <div class="mt-3">
-                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Joined:</label>
-                        <p class="text-muted">March 22, 2021</p>
+                        <label class="tx-11 font-weight-bold mb-0 ">Joined:</label>
+                        <p class="text-muted">{{user.date_registered}} </p>
                     </div>
                     <div class="mt-3">
-                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Lives:</label>
-                        <p class="text-muted">Talisay, Cebu City</p>
+                        <label class="tx-11 font-weight-bold mb-0 ">Location:</label>
+                        <p class="text-muted">{{user.street}}, {{user.city}}</p>
                     </div>
                     <div class="mt-3">
-                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Email:</label>
-                        <p class="text-muted">me@gmail.com</p>
+                        <label class="tx-11 font-weight-bold mb-0t">Contact number:</label>
+                        <p class="text-muted">{{user.mobile}}</p>
                     </div>
                     <div class="mt-3">
-                        <label class="tx-11 font-weight-bold mb-0 text-uppercase">Website:</label>
-                        <p class="text-muted">www.mememe.com</p>
+                        <label class="tx-11 font-weight-bold mb-0 ">Role:</label>
+                         {% if user.role == 1 %}
+                        <p class="text-muted">user</p>
+                        {% elif user.role == 2%}
+                        <p class="text-muted">organizer</p>
+                        {% for user in user_info%}
+                      
+                        <form action="" id="updateForm" method="post"> 
+                                {% csrf_token %}
+                        <input type="text" name="userid" value = {{user.id}} hidden>
+                        <button type="submit"  id="btnReqOrg" name="btnReqOrg" class="btn btn-success" style="margin-left:-13px;color:#FF5733;border: none;  background-color: Transparent;outline: none; cursor:pointer;">Request for Organizer</button> 
+                         <button type="submit"  id="btnReqAdmin" name="btnReqAdmin" class="btn btn-success" style="margin-left:-13px;color:#FF5733;border: none;  background-color: Transparent;outline: none; cursor:pointer;">Request for Admin</button> 
+                           {% endfor %}
+                        </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -112,52 +127,126 @@
 
         <!-- left wrapper end -->
         <!-- middle wrapper start -->
-        <div class="col-md-8 col-xl-6 middle-wrapper">
+         {% for event in events %}
+            <div class="col-md-8 col-xl-6 middle-wrapper">
             <div class="row">
-                <div class="col-md-12 grid-margin">
+                <div class="col-md-12">
                     <div class="card rounded">
                         <div class="card-header">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <div class="ml-2">
-                                        <p><b>Art Exhibition</b></p>
-                                        <!--<p class="tx-11 text-muted">1 min ago</p>-->
-                                    </div>
+                                    <p><b>{{event.name}}</b></p>
+                                  </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card-body">
-                            <img class="img-fluid" src="{% static 'images/event1.jpg' %}"> 
-                            <p class="mb-3 tx-14">
-                            <p class="mb-3 tx-14"><b>Event:</b> Art Exhibition</p>
-                            <p class="mb-3 tx-14"><b>Host:</b> hARTken</p>
-                            <p class="mb-3 tx-14"><b>Date:</b> November 10, 2021</p>
-                            <p class="mb-3 tx-14"><b>Time:</b> 8:00AM - 11:00 AM</p>
-                        </div>
+                            <center>  <img class="img-fluid" src="{{event.image.url}}"  style=" height:300px"></center>
+                           
+                            <p class="mb-3 tx-14"></p>
 
+                            {% for organizer in organizers%}
+                                {% if organizer.id == event.organizer_id.id %}
+                                    {% for user in users%}
+                                        {% if user.id == organizer.user_id.id %}
+                           <b>  {{user.firstname}} {{user.lastname}} </b> 
+                            <p >{{event.date_start}}  - {{ event.date_end }}</p> 
+                             
+                            <div style="margin-top: -3%"> {{ event.description }}</div> 
+                        </div>
+                        
 
                         <div class="card-footer">
                             <div class="d-flex post-actions">
+                                  
                                 <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
                                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                     </svg>
-                                    <p class="d-none d-md-block ml-2">Upvote</p>
-                                </a>
+                               
+                                    <p class="d-none d-md-block ml-2">
+                                        <form action="" id="updateForm" method="post"> 
+                                         {% csrf_token %}
+                                        <input type="text" name="eventid" value = {{event.id}} hidden>
+                                         <input type="text" name="upvote" value = {{event.upvote|add:1}} hidden>
+                                        <button  type="submit" id="btnUpvote" name="btnUpvote"  class="btn btn-success" style="border: none; background-color: Transparent; outline: none ; color: black;"> upvote</button>
+                                    
+                                    </form>
+                                    
+                                            {% endif %}
+                                        {% endfor%}
+                                    {% endif %}
+                                {% endfor %}    
+                                    </p>
+                                </a> 
 
+                            <a>
+                                <p class="d-none d-md-block ml-2">
+                                <form id="" method="post">
+                                {% csrf_token %}
+                                <input type="text" name="eventid" value = {{event.id}} hidden>
+                                 <input type="text" name="userid" value = {{user.id}} hidden>
 
-                                <a>
-                                    <p class="d-none d-md-block ml-2"><button type="button" class="btnEvent" style="background-color:#FF5733; border: none; color: white; border-radius: 5px;">+ Join Event</button></p>
-                                </a>
+                                    <button type="submit" name="btnJoin"  style="background-color:#FF5733; border: none; color: white; border-radius: 5px; margin-top: -40%; ">+ Join Event</button>
+                                    <button type="submit" name="btnCancel"  style="background-color:#FF5733; border: none; color: white; border-radius: 5px;"> Cancel</button>
+                                </form>
+                                     <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal-{{event.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; margin-top:  0px; color: white; border: none; margin-left: 3%;margin-top:  15px;height: 27px; width: 80px; ">Reviews</a>
+                                </p>
+                            </a>
                             </div>
                         </div>
-                    </div>
                 </div>
-
             </div>
         </div>
+    </div>
 
+    
+
+<div class="modal fade" id="newModal-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content" style="background-color: #f0f0f0">
+                        <div class="modal-header" style="background-color:#FF5733">
+                          <h5 class="modal-title" style="color: white">{{event.name}} Reviews</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form id="" method="post">
+                            {% csrf_token %}
+                    <div class="modal-body" style="height: 40%; overflow: auto">  
+                        <input type="text" name="eventid" value = {{event.id}} hidden>
+                            {% for review in reviews %}
+                            
+                           
+                            {% if review.event_id.id == event.id %}
+                            <p>{{review.review}}</p>
+                            {% endif%}
+                            {% endfor%}
+       
+                    </div>
+                     </form>
+                      <form action="" method="post">
+                            {% csrf_token %}
+                   <input type="text" name="eventid" value = {{event.id}} hidden>
+                   <input type="text" name="userid" value = {{user.id}} hidden>
+                    <input type="text" name="review" value ="" placeholder="type here.." style="margin-left: 10%; margin-top: 10%; width: 60%">
+                    <div class="modal-footer">
+
+                            <button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733">publish</button> 
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">cancel</button>
+                        </div>
+                    </form>
+               
+            </div>
+        </div>
+    </div>
+
+
+    {% endfor%}  
+
+{% endfor%}
 
         <!-- middle wrapper end -->
         <!-- right wrapper start -->
@@ -172,12 +261,21 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <center>
+
+                                            <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal-{{participants.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; color: white; border: none; width: 150px;">+ Add Event </a>
+                                            
+                                            
+                                      </center>
+                                    </div>
+                                    <br> <br>
+                                    <div class="col-md-12">
+                                        <center>
                                             <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal-{{events.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; color: white; border: none; width: 150px;">My Events</a>
                                     </center>
                                     <br>
                                     </div>
 
-                                    <br>
+                                    
 
                                     <div class="col-md-12">
                                          <center>
@@ -187,12 +285,16 @@
                                     </div>
 
 
+                                    
+<br>
                                     <div class="col-md-12">
                                         <center>
-                                            <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#appModal-{{participants.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; color: white; border: none; width: 150px;"> Pending Approval</a>
+
+                                            <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal-{{participants.id}}" style="font-size: 14px; vertical-align: center; background-color: #273746; color: white; border: none; width: 150px;"> Pending Approval</a>
                                             <br>
                                       </center>
                                     </div>
+
 
                                 </div>
                             </div>
@@ -246,9 +348,40 @@
     </div>-->
 
     <!--Right Wrapper End-->
+<div class="modal fade" id="addModal-{{participants.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background: #2b353b;">
+                          <h5 class="modal-title" style="color:#FF5733;">Add Event</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        
+                    <div class="modal-body" style="height: 40%; overflow: auto; background: #2b353b; color: #a3aaae;">  
+                        <table style="color:white;">
+                        
+                          <tr>
+                            <td style="padding-right: 100px;">oten:</td>
+                            <td style="padding-right: 100px;">Venue:</td>
+                            <td style="padding-right: 100px;">Date:</td>
+                            <td style="padding-right: 100px;">Start:</td>
+                          </tr>
+                        </table>
+       
+                    <div class="modal-footer" style="background: #2b353b;">
 
+                            <button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733; border: none;">Publish</button> 
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">Cancel</button>
+                     </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--EVENTS MODAL-->
+{% for event in events %}
+
 <div class="modal fade" id="newModal-{{events.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                       <div class="modal-content">
@@ -260,50 +393,68 @@
                         </div>
                         
                     <div class="modal-body" style="background: #2b353b; color: #a3aaae;">  
-
-                        <table style="width:100%; color:white; border:1px solid; padding: 5px;">
-                          <tr>
-                            <th>Today</th>
-                          </tr>
-                          <tr>
-                            <td>Name:</td>
-                          </tr>
-                          <tr>
-                            <td>Venue:</td>
-                          </tr>
-                          <tr>
-                            <td>Date:</td>
-                          </tr>
-                          <tr>
-                            <td>Start:</td>
-                          </tr>
+                        <a style="color: white">Upcoming </a>
+                        <table style="width:100%; color:white; ; padding: 5px;">
+                           <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                             <th>Type</th>
+                                             <th> Venue</th>
+                                             <th>Date</th>
+                                        </tr>
+                            </thead>
+                            {% for user in user_info%}
+                            {% if event.organizer_id.id == user.id %}
+                           
+                                        <tr>
+                                            
+                                            <td>event.name</td>
+                                            <td>event.etype</td>
+                                            <td>event.venue Venue</td>
+                                            <td>event.date_start</td>
+                                            
+                                          
+                                            <th></th>
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                         
                         </table>
-                    
-                        <br>
+                    <br><br><br>
 
-                        <table style="color:white;">
-                        <th>Upcoming Events</th> 
-                          </tr>
-                          <tr>
-                            <td style="padding-right: 100px;">Name:</td>
-                            <td style="padding-right: 100px;">Venue:</td>
-                            <td style="padding-right: 100px;">Date:</td>
-                            <td style="padding-right: 100px;">Start:</td>
-                          </tr>
+                         <a style="color: white">Past </a>
+                        <table style="width:100%; color:white; ; padding: 5px;">
+                           <thead>
+                           
+                           
+                                        <tr>
+                                            <th>Name</th>
+                                             <th>Type</th>
+                                             <th> Venue</th>
+                                             <th>Date</th>
+                                        </tr>
+                                        
+
+
+                            </thead>
+                         
+                          {% for user in user_info%}
+                            {% if event.organizer_id.id == user.id %}
+                           
+                                        <tr>
+                                            
+                                            <td>event.name</td>
+                                            <td>event.etype</td>
+                                            <td>event.venue Venue</td>
+                                            <td>event.date_start</td>
+                                            
+                                          
+                                            <th></th>
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
                         </table>
-
-                         <br>
-
-                        <table style="color:white;">
-                        <th>Past Events</th> 
-                          </tr>
-                          <tr>
-                            <td style="padding-right: 100px;">Name:</td>
-                            <td style="padding-right: 100px;">Venue:</td>
-                            <td style="padding-right: 100px;">Date:</td>
-                            <td style="padding-right: 100px;">Start:</td>
-                          </tr>
-                        </table>
+                        <br><br>
 
                     <div class="modal-footer" style="background: #2b353b;">
 
@@ -314,7 +465,7 @@
         </div>
     </div>
 </div>
-
+{% endfor %}
 
 <!-- REQUESTS MODAL-->
 <div class="modal fade" id="requestModal-{{requests.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
@@ -351,36 +502,7 @@
 
 
 <!-- APPROVAL MODAL-->
-<div class="modal fade" id="appModal-{{participants.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header" style="background: #2b353b;">
-                          <h5 class="modal-title" style="color:#FF5733;">Pending Approval</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        
-                    <div class="modal-body" style="height: 40%; overflow: auto; background: #2b353b; color: #a3aaae;">  
-                        <table style="color:white;">
-                          </tr>
-                          <tr>
-                            <td style="padding-right: 100px;">Name:</td>
-                            <td style="padding-right: 100px;">Venue:</td>
-                            <td style="padding-right: 100px;">Date:</td>
-                            <td style="padding-right: 100px;">Start:</td>
-                          </tr>
-                        </table>
-       
-                    <div class="modal-footer" style="background: #2b353b;">
 
-                            <button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733; border: none;">Publish</button> 
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">Cancel</button>
-                     </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- END OF MODAL-->
 
 

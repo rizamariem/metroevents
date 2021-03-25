@@ -23,8 +23,8 @@ class login(View):
 					password = request.POST.get("password")
 					a = bool(Users.objects.filter(username = usern, pword = password))
 					user_info = Users.objects.filter(username = usern, pword = password)
-					for b in Users.objects.filter(username = usern, pword = password):
-						if (a == True):
+					if (a == True):
+						for b in Users.objects.filter(username = usern, pword = password):
 							if b.role == 1:
 								users = Users.objects.all()
 								organizers = Organizers.objects.all()
@@ -56,10 +56,10 @@ class login(View):
 								'reviews': reviews,
 								'requests' : requests,
 								}
-								return render(request, 'feed.html', context)
+								return render(request, 'organizerfeed.html', context)
 							
-						else:
-							return HttpResponse('invalid input')
+					else:
+						return HttpResponse('invalid input')
 				else:
 					return HttpResponse('please enter fields')
 
