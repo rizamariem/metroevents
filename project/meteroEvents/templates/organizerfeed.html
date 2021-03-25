@@ -409,14 +409,14 @@
                     <div class="modal-footer" style="background: #;">
         {% for user in user_info %}
         {% for organizer in organizers %}
-        {% if organizer.id == user.id%}
+        {% if organizer.user_id.id == user.id %}
             <input type="number" name="org_id" value={{organizer.id}} hidden>
                             <button type="submit"  id="btnAddEvent" name="btnAddEvent" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733; border: none;">Request add</button> 
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">Cancel</button>
 
-            {% endif%}
-            {% endfor%}
-            {% endfor%}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
                      </div>
                  </form>
             </div>
@@ -425,7 +425,7 @@
 </div>
 
 <!--EVENTS MODAL-->
-{% for event in events %}
+
 
 <div class="modal fade" id="newModal-{{events.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
@@ -448,6 +448,7 @@
                                              <th>Date</th>
                                         </tr>
                             </thead>
+                            {% for event in events %}
                             {% for user in user_info%}
                             {% if event.organizer_id.id == user.id %}
                            
@@ -462,6 +463,7 @@
                                             <th></th>
                                         </tr>
                                         {% endif %}
+                                        {% endfor %}
                                         {% endfor %}
                          
                         </table>
@@ -510,7 +512,7 @@
         </div>
     </div>
 </div>
-{% endfor %}
+
 
 <!-- REQUESTS MODAL-->
 <div class="modal fade" id="requestModal-{{requests.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">

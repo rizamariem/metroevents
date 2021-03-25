@@ -92,9 +92,10 @@
                          {% if user.role == 1 %}
                         <p class="text-muted">user</p>
                         {% elif user.role == 2%}
-                        <p class="text-muted">organizer</p>
-                        {% for user in user_info%}
-                      
+                        <p class="text-muted">organizer </p>
+                         {% endif %}
+                        {% for user in user_info %}
+                     
                         <form action="" id="updateForm" method="post"> 
                                 {% csrf_token %}
                         <input type="text" name="userid" value = {{user.id}} hidden>
@@ -102,7 +103,8 @@
                          <button type="submit"  id="btnReqAdmin" name="btnReqAdmin" class="btn btn-success" style="margin-left:-13px;color:#FF5733;border: none;  background-color: Transparent;outline: none; cursor:pointer;">Request for Admin</button> 
                            {% endfor %}
                         </form>
-                        {% endif %}
+                       
+
 
                     </div>
                 </div>

@@ -17,7 +17,14 @@ class registerForm(forms.ModelForm):
 class regEventForm(forms.ModelForm):
     class Meta:
     	model = Events
-    	fields = ('venue',)
+    	fields = ('name',)
+
+
+
+class promoteForm(forms.ModelForm):
+     class Meta:
+        model = Organizers
+        fields = ('user_id',)
 
     	
 

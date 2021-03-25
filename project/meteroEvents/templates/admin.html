@@ -251,9 +251,10 @@
                                                 <td>{{user.firstname}} {{user.lastname}}</td>
                                                 {% if request.req_role == 1 %}
                                                 <td>organizer</td>
-                                                {% else %}
+                                                {% elif request.req_role == 2 %}
                                                 <td>administrator</td>
                                                 {% endif %}
+
                                                 <td> <input type="text" name="requestid" value = {{request.id}} hidden>
                                                     <input type="text" name="userid" value = {{user.id}} hidden>
                                                   <button type="submit"  id="view" name="btnAcceptRole" class="btn btn-success" style="margin-left:0px;background-color:#FF5733; font-size: 8px; margin-top: -20px;">approve</button> 

@@ -40,7 +40,8 @@ class login(View):
 								'reviews': reviews
 								}
 								return render(request, 'feed.html', context)
-							elif b.role == 3:
+
+							elif b.role == 2:
 								users = Users.objects.all()
 								organizers = Organizers.objects.all()
 								participants = Participants.objects.all()
@@ -57,6 +58,24 @@ class login(View):
 								'requests' : requests,
 								}
 								return render(request, 'organizerfeed.html', context)
+
+							elif b.role == 3:
+								users = Users.objects.all()
+								organizers = Organizers.objects.all()
+								participants = Participants.objects.all()
+								events = Events.objects.all()
+								reviews = Reviews.objects.all()
+								requests = Requests.objects.all()
+								context = {
+								'events': events,
+								'participants': participants,
+								'users': users,
+								'user_info': user_info,
+								'organizers': organizers,
+								'reviews': reviews,
+								'requests' : requests,
+								}
+								return render(request, 'admin.html', context)
 							
 					else:
 						return HttpResponse('invalid input')
@@ -135,14 +154,14 @@ class login(View):
 				req = Requests.objects.filter(id = req_id).delete()
 				if r.req_role == 1:
 					form = Organizers(user_id = u)
-					form.save
+					form.save()
 					u = Users.objects.filter(id = user).update(role = 2)
+					return HttpResponse('Promotion approved')
 				else:
 					form = Administrator(user = u)
-					form.save
+					form.save()
 					u = Users.objects.filter(id = user).update(role = 3)
-
-				return HttpResponse('Promotion approved')
+					return HttpResponse('Promotion approved')
 
 			elif 'btnDeclineRole' in request.POST:
 				form = loginForm(request.POST, request.FILES)
@@ -166,7 +185,7 @@ class login(View):
 				return HttpResponse('Event declined')
 
 			elif 'btnAddEvent' in request.POST:
-				form = loginForm(request.POST, request.FILES)
+				form = regEventForm(request.POST, request.FILES)
 				if form.is_valid():
 					org = request.POST.get("org_id")
 					name = request.POST.get("name")
@@ -176,13 +195,14 @@ class login(View):
 					enddate = request.POST.get("enddate")
 					description = request.POST.get("description")
 					image = request.FILES["image"]
+					target = request.POST.get("target")
+					organizer = Organizers.objects.get(id = org)
 
-					event = Events.objects.get(id = e_id)
-					user = Users.objects.get(id = u_id)
-					form = Events( organizer_id = org , etype = pword, name = fname, 
-					venue = lname, date_start = mn,date_end= gender, image = im_3,
-					description = city, targetLocation = st)
+					form = Events( organizer_id = organizer , etype = etype, name = name, 
+					venue = venue, date_start = startdate,date_end= enddate, image = image,
+					description = description, targetLocation = target)
 					form.save()
+					return HttpResponse('Event request sent to admin')
 		
 
 
@@ -208,7 +228,7 @@ class register(View):
  			pro = request.POST.get("province")
  			city = request.POST.get("city")
  			st = request.POST.get("street")
- 			
+
  			a = bool(Users.objects.filter(username = usern, pword = pword, firstname = fname, lastname = lname, mobile = mn,
 						country = country, province = pro, city = city, street = st))
  				
