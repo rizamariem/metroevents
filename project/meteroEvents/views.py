@@ -186,23 +186,25 @@ class login(View):
 
 			elif 'btnAddEvent' in request.POST:
 				form = regEventForm(request.POST, request.FILES)
-				if form.is_valid():
-					org = request.POST.get("org_id")
-					name = request.POST.get("name")
-					etype = request.POST.get("type")
-					venue = request.POST.get("venue")
-					startdate = request.POST.get("startdate")
-					enddate = request.POST.get("enddate")
-					description = request.POST.get("description")
-					image = request.FILES["image"]
-					target = request.POST.get("target")
-					organizer = Organizers.objects.get(id = org)
+				org = request.POST.get("org_id")
+				name = request.POST.get("name")
+				etype = request.POST.get("type")
+				venue = request.POST.get("venue")
+				startdate = request.POST.get("startdate")
+				enddate = request.POST.get("enddate")
+				description = request.POST.get("description")
+				image = request.FILES["image"]
+				target = request.POST.get("target")
+				organizer = Organizers.objects.get(id = org)
 
-					form = Events( organizer_id = organizer , etype = etype, name = name, 
+				form = Events( organizer_id = organizer , etype = etype, name = name, 
 					venue = venue, date_start = startdate,date_end= enddate, image = image,
 					description = description, targetLocation = target)
-					form.save()
-					return HttpResponse('Event request sent to admin')
+					#form.save()
+					#user = Users.objects.get(id = organizer.id)
+					#form = Requests(user = user, event = )
+					#form = Requests()
+				return HttpResponse(form.organizer_id)
 		
 
 
