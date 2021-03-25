@@ -1,7 +1,9 @@
+{% load static %}
+{% block headerinclude %}
 <!DOCTYPE html>
 <html lang="en">
+    <head>
 
-<head>
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,33 +11,62 @@
     <meta name="author" content="Hau Nguyen">
     <meta name="keywords" content="au theme template">
 
+
     <!-- Title Page-->
     
-{% load static %}
     <!-- Fontfaces CSS-->
-    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all"> 
-    <link href="{% static ' '%}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static '/css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static '/vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static '/vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static '/vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
 
     <!-- Bootstrap CSS-->
-    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static '/vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
-    <link href="{ % static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
-    <link href="{% static ' '%}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+    <!--<link href="{% static '/vendor/animsition/animsition.min.css' %}" rel="stylesheet">-->
+    <link href="{% static '/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static '/vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static '/vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static '/vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static '/vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static '/vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
- {% load static %}
-</head>
+    <link href="{% static '/css/theme.css' %}" rel="stylesheet" media="all">
+
+    </head>
+{% endblock headerinclude %}
+
+{% block footerinclude %}
+       <!-- Jquery JS-->
+    <script src="{% static '/vendor/jquery-3.2.1.min.js' %}"></script>
+    <!-- Bootstrap JS-->
+    <script src="{% static '/vendor/bootstrap-4.1/popper.min.js' %}"></script>
+    <script src="{% static '/vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+    <!-- Vendor JS-->
+    <script src="{% static '/vendor/slick/slick.min.js' %}"> </script>
+    
+    <script src="{% static '/vendor/wow/wow.min.js' %}"></script>
+    <script src="{% static '/vendor/animsition/animsition.min.js' %}"></script>
+    <script src="{% static '/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
+    
+    <script src="{% static '/vendor/counter-up/jquery.waypoints.min.js' %}"></script>   
+    <script src="{% static '/vendor/counter-up/jquery.counterup.min.js' %}"></script>
+    </script>
+    <script src="{% static '/vendor/circle-progress/circle-progress.min.js' %}"></script>
+    <script src="{% static '/vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+    <script src="{% static '/vendor/chartjs/Chart.bundle.min.js' %}"></script>
+    <script src="{% static '/vendor/select2/select2.min.js' %}"></script>
+
+    <!-- Main JS-->
+    <script src="{% static '/js/main.js' %}"></script>
+    
+{% endblock footerinclude %}
+
+
 {% block content %}
-<body class="animsition" >
+<body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER DESKTOP-->
         <header class="header-desktop3 d-none d-lg-block" >
@@ -44,10 +75,8 @@
                     <div class="header__logo">
                     </div>
                     <div class="header__navbar">
-                        <ul class="list-unstyled">
-                            
-                    
-                            <li class="has-sub">
+                        <ul class="list-unstyled" style="margin-top: -22px; float: right;">
+                            <!--<li class="has-sub">
                                 <a href="#">
                                     <i class="fas fa-copy"></i>
                                     <span class="bot-line"></span>Go To</a>
@@ -59,87 +88,139 @@
                                         <a href="register.html">Register</a>
                                     </li>
                                 </ul>
+                            </li>-->
+
+                            <li class="has-sub">
+                                <a>
+                                    <i class="zmdi zmdi-notifications" style="color:white;"></i>
+                                    <span class="bot-line"></span></a>
+                                <ul class="header3-sub-list list-unstyled">
+                                    <li>
+                                        <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal-{{participants.id}}" style="background-color: white; text-align: left;">Promotion Requests
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal1-{{request.id}}" style="background-color: white; text-align: left;">Event Requests
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
+                            <li class="has-sub">
+                                <a>
+                                    <span class="bot-line"></span><p style="color: white;">Administrator</p></a>
+                                <ul class="header3-sub-list list-unstyled">
+                                    <li>
+                                        <a>
+                                        <h5>Administrator</h5>
+                                        <span>admin@azure.com</span>
+                                        </a>
+
+                                            
+                                    </li>
+                                    <li>
+                                      <a href="#">
+                                            <i class="zmdi zmdi-power"></i>Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+
                         </ul>
                     </div>
-                    <div class="header__tool">
-                        <div class="header-button-item has-noti js-item-menu">
-                            <i class="zmdi zmdi-notifications"></i>
-                            <div class="notifi-dropdown notifi-dropdown--no-bor js-dropdown">
-                                <div class="notifi__item">
-                                
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div class="header-button-item js-item-menu">
-                            <i class="zmdi zmdi-settings"></i>
-                            <div class="setting-dropdown js-dropdown">
-                                <div class="account-dropdown__body">
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-account"></i>Account</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-settings"></i>Setting</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                    </div>
-                                </div>
-                                <div class="account-dropdown__body">
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-globe"></i>Language</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-pin"></i>Location</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-email"></i>Email</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-notifications"></i>Notifications</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="account-wrap">
-                            <div class="account-item account-item--style2 clearfix js-item-menu">
-                                <div class="image">
-                                </div>
-                                <div class="content">
-                                    <a class="js-acc-btn" href="#">Administrator</a>
-                                </div>
-                                <div class="account-dropdown js-dropdown">
-                                    <div class="info clearfix">
-                                        <div class="content">
-                                            <h5 class="name">
-                                                <a href="#">Administrator</a>
-                                            </h5>
-                                            <span class="email">admin@azure.com</span>
-                                        </div>
-                                    </div>
-                                    <div class="account-dropdown__body">
-                                    <div class="account-dropdown__footer">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-power"></i>Logout</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </header>
         <!-- END HEADER DESKTOP-->
 
-        <!-- PAGE CONTENT-->
+
+        <!--PROMOTION REQUEST MODAL!-->
+            <div class="modal fade" id="newModal-{{participants.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background: #2b353b;">
+                          <h5 class="modal-title" style="color:#FF5733;">Promotion Requests</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        
+                    <div class="modal-body" style="height: 40%; overflow: auto; background: #2b353b; color: #a3aaae;">  
+                        <table style="color:white;">
+                          <tr>
+                            <td style="padding-right: 100px;">Name:</td>
+                            <td style="padding-right: 100px;">Role</td>
+                            <td style="padding-right: 100px;">
+                                <button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733; border: none;">Approve</button> 
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">Decline</button>
+                            </td>
+                          </tr>
+                        </table>
+                    </div>
+
+                    <div class="modal-footer" style="background: #2b353b;">
+
+                            <!--<button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733; border: none;">Publish</button> 
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">Cancel</button>-->
+                     </div>
+                    
+                </div>
+            </div>
+        </div>  
+        <!-- END OF PROMOTION REQUEST MODAL!-->
+
+
+
+
+        <!--EVENT REQUEST MODAL!-->
+            <div class="modal fade" id="newModal1-{{request.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header" style="background: #2b353b;">
+                          <h5 class="modal-title" style="color:#FF5733;">Event Requests</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        
+                    <div class="modal-body" style="height: 40%; overflow: auto; background: #2b353b; color: #a3aaae;">  
+                        <table style="color:white;">
+                          <tr>
+                            <th>EVENT NAME</th>
+                            <th>EVENT TYPE</th>
+                            <th>START DATE</th>
+                            <th>TARGET LOCATION</th>
+                            <th>ACTION ITEMS</th>
+                           </tr>
+
+                           <tr>
+                            <td style="padding-right: 100px;">Name:</td>
+                            <td style="padding-right: 100px;">Venue:</td>
+                            <td style="padding-right: 100px;">Date:</td>
+                            <td style="padding-right: 100px;">Start:</td>
+                            <td style="padding-right: 100px;">
+                                <button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="background-color:#FF5733; border: none;">Approve</button> 
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border: none;">Decline</button>
+                            </td>
+                          </tr>
+                        </table>
+                    </div>  
+                           
+                    <div class="modal-footer" style="background: #2b353b;">
+
+                        <!--<button type="submit"  id="btnPublish" name="btnPublish" class="btn btn-success" style="margin-left:-40px;background-color:#FF5733; border: none;">Publish</button> 
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;">Cancel</button>-->
+                     </div>
+                  
+                </div>
+            </div>
+        </div>  
+        <!-- END OF EVENT REQUEST MODAL!-->
+
+
+
+
+       <!-- PAGE CONTENT-->
         <div class="page-content--bgf7">
             <!-- BREADCRUMB-->
             <section class="au-breadcrumb2">
@@ -280,20 +361,32 @@
             <!-- END STATISTIC CHART-->
 
             <!-- DATA TABLE-->
+<<<<<<< Updated upstream:meteroEvents/templates/admin.html
+<<<<<<< Updated upstream:meteroEvents/templates/admin.html
             <section class="p-t-20" ">
                 <div class="container" style="width: 50%; margin-top: -37%; margin-left:40%; height: 500px; width: 500px">
+=======
+            <section class="p-t-20">
+                <div class="container">
+>>>>>>> Stashed changes:project/meteroEvents/templates/admin.html
+=======
+            <section class="p-t-20">
+                <div class="container">
+>>>>>>> Stashed changes:project/meteroEvents/templates/admin.html
                     <div class="row">
                         <div class="col-md-12">
-                             <h3 class="title-3 m-b-30">Event requests</h3>
+                            <h3 class="title-5 m-b-35">Event requests</h3>
                             <div class="table-data__tool">
                                 <div class="table-data__tool-left">
                                     
                                 </div>
                                 <div class="table-data__tool-right">
-                                    
+                                   <!-- <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                        <i class="zmdi zmdi-plus"></i>add Event</button>-->
             
                                 </div>
                             </div>
+
                             <div class="table-responsive table-responsive-data2">
                                 <table class="table table-data2">
                                     <thead>
@@ -360,32 +453,8 @@
     </div>
 
 
-    <!-- Jquery JS-->
-    <script src="{% static 'vendor/jquery-3.2.1.min.js %'}"></script>
-    <!-- Bootstrap JS-->
-    <script src="{% static 'vendor/bootstrap-4.1/popper.min.js ' %}"></script>
-    <script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js ' %}"></script>
-    <!-- Vendor JS       -->
-    <script src="{% static 'vendor/slick/slick.min.js ' %}">
-    </script>
-    <script src="{% static 'vendor/wow/wow.min.js ' %}"></script>
-    <script src="{% static ' vendor/animsition/animsition.min.js' %}"></script>
-    <script src="{% static ' vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
-    </script>
-    <script src="{% static 'vendor/counter-up/jquery.waypoints.min.js ' %}"></script>   
-    <script src="{% static ' vendor/counter-up/jquery.counterup.min.js' %}">
-    </script>
-    <script src="{% static 'vendor/circle-progress/circle-progress.min.js ' %}"></script>
-    <script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js ' %}"></script>
-    <script src="{% static 'vendor/chartjs/Chart.bundle.min.js ' %}"></script>
-    <script src="{% static 'vendor/select2/select2.min.js' %}">
-    </script>
-
-    <!-- Main JS-->
-    <script src="{% static 'js/main2.js ' %}"></script>
+    </div>
 
 </body>
-
 </html>
-<!-- end document-->
 {% endblock content %}

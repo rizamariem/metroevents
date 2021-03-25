@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="{% static '/css/feedstyle.css' %}">
     
 {% endblock headerinclude %}
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+   
+{% block footerinclude %}
+     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!--<script>
     $(document).ready(function(){
         $(".btnEvent").click(function(){
@@ -24,8 +26,6 @@
         });
     });
     </script>-->
-{% block footerinclude %}
-    
 {% endblock footerinclude %}
 
 {% block content %}
@@ -42,6 +42,11 @@
                         </li>
                         <li style="width: 650px"></li>
                         <li class="header-link-item d-flex align-items-center">
+                            <input type="search" id="site-search">
+                            <button class="btnSearch"><i class="fa fa-search" aria-hidden="true" style="color:white;"></i></button>
+
+                        </li>
+                         <li class="header-link-item d-flex align-items-center">
                             <input type="search" id="site-search">
                             <button class="btnSearch"><i class="fa fa-search" aria-hidden="true" style="color:white;"></i></button>
 
