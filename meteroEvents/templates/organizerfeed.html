@@ -599,9 +599,11 @@
                                             <td style="padding-right: 100px;">{{user|length|add:1}}</td>
                                         <td style="padding-right: 100px;">{{user.firstname}} {{user.lastname}}</td>
                                             {% endif %}
-                                        {% endfor %}
+                                        
                                         <input type="text" name="requestid" value = {{request.id}} hidden>
                                                 <input type="text" name="userid" value = {{user.id}} hidden>
+                                        <input type="text" name="eventid" value = {{event.id}} hidden>
+                                        {% endfor %}
                                         <td style="padding-right: 100px;">{{event.name}}</td>
                                         <td style="padding-right: 100px;">{{event.venue}}</td>
                                         <td> <button type="submit"  id="view" name="btnApproveJoin" class="btn btn-success" style="margin-left:0px;background-color:#FF5733; font-size: 8px; margin-left: -50px;">approve</button> 

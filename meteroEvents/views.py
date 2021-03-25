@@ -216,6 +216,20 @@ class login(View):
 				req_id = request.POST.get("requestid")
 				user = request.POST.get("userid")
 				event_id = request.POST.get("eventid")
+				req = Requests.objects.filter(id = req_id).update(response = 1)
+				event = Events.objects.get(id = event_id)
+				u = Users.objects.get(id = user)
+				form = Participants(event_id = event, participant_id = u )
+				form.save()
+				return HttpResponse('Participant Accepted')
+
+			elif 'btnDeclineJoin' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				req_id = request.POST.get("requestid")
+				user = request.POST.get("userid")
+				event_id = request.POST.get("eventid")
+				req = Requests.objects.filter(id = req_id).update(response = 0)
+
 
 		
 
