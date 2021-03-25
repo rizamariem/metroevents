@@ -70,7 +70,7 @@ class login(View):
 				upvote = Events.objects.values_list('upvote', flat=True).filter(id =e_id)
 				event = Events.objects.filter(id = e_id).update(upvote = uv)
 				return HttpResponse('upvoted')
-	
+
 
 			elif 'btnPublish' in request.POST:
 				form = loginForm(request.POST, request.FILES)
@@ -165,6 +165,26 @@ class login(View):
 				req = Requests.objects.filter(id = req_id).update(response = 1)
 				return HttpResponse('Event declined')
 
+			elif 'btnAddEvent' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				if form.is_valid():
+					org = request.POST.get("org_id")
+					name = request.POST.get("name")
+					etype = request.POST.get("type")
+					venue = request.POST.get("venue")
+					startdate = request.POST.get("startdate")
+					enddate = request.POST.get("enddate")
+					description = request.POST.get("description")
+					image = request.FILES["image"]
+
+					event = Events.objects.get(id = e_id)
+					user = Users.objects.get(id = u_id)
+					form = Events( organizer_id = org , etype = pword, name = fname, 
+					venue = lname, date_start = mn,date_end= gender, image = im_3,
+					description = city, targetLocation = st)
+					form.save()
+		
+
 
 
 
@@ -188,7 +208,7 @@ class register(View):
  			pro = request.POST.get("province")
  			city = request.POST.get("city")
  			st = request.POST.get("street")
-
+ 			
  			a = bool(Users.objects.filter(username = usern, pword = pword, firstname = fname, lastname = lname, mobile = mn,
 						country = country, province = pro, city = city, street = st))
  				
@@ -226,7 +246,7 @@ class registerEvent(View):
 		form = regEventForm(request.POST, request.FILES)
 
 		if form.is_valid():
-			c = connection.cursor()
+			
 			org_id = request.POST.get("org_id")
 			pword = request.POST.get("type")
 			fname = request.POST.get("name")
