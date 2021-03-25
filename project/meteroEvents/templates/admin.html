@@ -168,7 +168,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="title-4">Metro Events
+                            <h1 class="title-4">Administrator
                                 
                             </h1>
                             <hr class="line-seprate">
@@ -228,7 +228,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="title-5 m-b-35">administrator</h3>
+                            <h3 class="title-5 m-b-35">Metro Events</h3>
                         </div>
                     </div>
                     <div class="row">
@@ -238,6 +238,7 @@
                                 <h3 class="title-3 m-b-30">Promotion requests</h3>
                                 <div class="table-responsive">
                                     <table class="table table-top-campaign">
+
                                         <tbody>
                                              {% for request in requests %}
                                              {% if request.response == 2%}
@@ -308,24 +309,28 @@
                                     </thead>
                                     <tbody>
                                       {% for request in requests%}
-                                       
-                                        <tr class="tr-shadow">
-                                            <td style="margin-bottom: 200px">
-                                             {% if request.req_type == 2 %}
+                                       {% if request.req_type == 2 and request.response == 2%}
                                                  {% for event in events %}
-                                                 {% if event.id == request.event.id%}
-                                                <label class="au-checkbox">
-                                                  <button type="submit"  id="view" name="btnAcceptEvent" class="btn btn-success" style="margin-left:0px;background-color:#FF5733; font-size: 8px; margin-left: -35%">approve</button> 
-                                                  <button type="submit"  id="view" name="btnDeclineEvent" class="btn btn-success" style="margin-left:0px;background-color:#FF5733;font-size: 10px; margin-top: -90%; margin-left: 40%">decline</button> 
+                                                 {% if event.id == request.event.id %}
+                                                 <form action="" id="updateForm" method="post"> 
+                                         {% csrf_token %} 
+                                        <tr class="tr-shadow">
+                                            <td style="margin-bottom: -200px">
+                                             <input type="text" name="requestid" value = {{request.id}} hidden>
+                                                    <input type="text" name="userid" value = {{user.id}} hidden>
+                                               
+                                                  <button type="submit"  id="view" name="btnAcceptEvent" class="btn btn-success" style="margin-left:0px;background-color:#FF5733; font-size: 8px; margin-left: -25px;margin-top: ">approve</button> 
+                                                  <button type="submit"  id="view" name="btnDeclineEvent" class="btn btn-success" style="margin-left:0px;background-color:#FF5733;font-size: 10px; margin-top: -49px; margin-left: 40px">decline</button> 
                                                    
-                                                </label>
+                                               
                                                 
                                             </td>
                                            
-                                            <td> {{event.name}} oten</td>
-                                            <td> {{event.etype}} oten</td>
-                                             <td> {{event.description}} oten</td>
+                                            <td> {{event.name}} </td>
+                                            <td> {{event.etype}} </td>
+                                             <td> {{event.description}} </td>
                                              <td> {{event.date_start}} oten</td>
+                                             
                                             {% endif %}
                                              {% endfor%}
                                             }
@@ -334,6 +339,7 @@
                                                
                                             
                                         </tr>
+                                    </form>
                                         {% endfor %}
                                        
                                         

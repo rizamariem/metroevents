@@ -56,7 +56,7 @@ class login(View):
 								'reviews': reviews,
 								'requests' : requests,
 								}
-								return render(request, 'admin.html', context)
+								return render(request, 'feed.html', context)
 							
 						else:
 							return HttpResponse('invalid input')
@@ -142,14 +142,29 @@ class login(View):
 					form.save
 					u = Users.objects.filter(id = user).update(role = 3)
 
-				return HttpResponse('Request approved')
+				return HttpResponse('Promotion approved')
 
 			elif 'btnDeclineRole' in request.POST:
 				form = loginForm(request.POST, request.FILES)
 				req_id = request.POST.get("requestid")
 				user = request.POST.get("userid")
 				r = Requests.objects.filter(id = req_id).update(response = 0)
-				return HttpResponse('Request approved')
+				return HttpResponse('Promotion declined')
+
+			elif 'btnAcceptEvent' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				req_id = request.POST.get("requestid")
+				user = request.POST.get("userid")
+				req = Requests.objects.filter(id = req_id).update(response = 1)
+				return HttpResponse('Event approved')
+
+			elif 'btnDeclineEvent' in request.POST:
+				form = loginForm(request.POST, request.FILES)
+				req_id = request.POST.get("requestid")
+				user = request.POST.get("userid")
+				req = Requests.objects.filter(id = req_id).update(response = 1)
+				return HttpResponse('Event declined')
+
 
 
 
