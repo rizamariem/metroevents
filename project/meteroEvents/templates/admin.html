@@ -324,7 +324,7 @@
                                              {% for request in requests %}
                                              {% if request.response == 2%}
                                                 {% for user in users%}
-                                                {% if request.user.id == user.id and request.response == 2 and request.req_type == 2 %}
+                                                {% if request.user.id == user.id and request.response == 2%}
                                                
                                     <form action="" id="updateForm" method="post"> 
                                          {% csrf_token %} 
@@ -338,7 +338,6 @@
 
                                                 <td> <input type="text" name="requestid" value = {{request.id}} hidden>
                                                     <input type="text" name="userid" value = {{user.id}} hidden>
-                                                    
                                                   <button type="submit"  id="view" name="btnAcceptRole" class="btn btn-success" style="margin-left:0px;background-color:#FF5733; font-size: 8px; margin-top: -20px;">approve</button> 
                                                   <button type="submit"  id="view" name="btnDeclineRole" class="btn btn-success" style="margin-left:0px;background-color:#FF5733;font-size: 10px; margin-top: -10px; margin-left:;font-size: 9px">decline</button> 
                                               </td>
@@ -361,18 +360,8 @@
             <!-- END STATISTIC CHART-->
 
             <!-- DATA TABLE-->
-<<<<<<< Updated upstream:meteroEvents/templates/admin.html
-<<<<<<< Updated upstream:meteroEvents/templates/admin.html
-            <section class="p-t-20" ">
-                <div class="container" style="width: 50%; margin-top: -37%; margin-left:40%; height: 500px; width: 500px">
-=======
             <section class="p-t-20">
                 <div class="container">
->>>>>>> Stashed changes:project/meteroEvents/templates/admin.html
-=======
-            <section class="p-t-20">
-                <div class="container">
->>>>>>> Stashed changes:project/meteroEvents/templates/admin.html
                     <div class="row">
                         <div class="col-md-12">
                             <h3 class="title-5 m-b-35">Event requests</h3>
@@ -394,8 +383,8 @@
                                             <th> </th>
                                             <th>event Name</th>
                                             <th>event Type</th>
-                                            <th>Start Date</th>
-                                             <th>Target Location</th>
+                                            <th>description</th>
+                                            <th>date</th>
                                           
                                             <th></th>
                                         </tr>
@@ -404,7 +393,7 @@
                                     </thead>
                                     <tbody>
                                       {% for request in requests%}
-                                       {% if request.req_type == 3 and request.response == 2%}
+                                       {% if request.req_type == 2 and request.response == 2%}
                                                  {% for event in events %}
                                                  {% if event.id == request.event.id %}
                                                  <form action="" id="updateForm" method="post"> 
@@ -412,11 +401,10 @@
                                         <tr class="tr-shadow">
                                             <td style="margin-bottom: -200px">
                                              <input type="text" name="requestid" value = {{request.id}} hidden>
-                                              <input type="text" name="eventid" value = {{event.id}} hidden>
                                                     <input type="text" name="userid" value = {{user.id}} hidden>
                                                
-                                                  <button type="submit"  id="view" name="btnAcceptEvent" class="btn btn-success" style="background-color:#FF5733; font-size: 8px; margin-left: -25px; margin-top: 0px;">approve</button> 
-                                                  <button type="submit"  id="view" name="btnDeclineEvent" class="btn btn-success" style="margin-left:0px;background-color:#FF5733;font-size: 10px; margin-top: -50px;  margin-left: 40px">decline</button> 
+                                                  <button type="submit"  id="view" name="btnAcceptEvent" class="btn btn-success" style="margin-left:0px;background-color:#FF5733; font-size: 8px; margin-left: -25px;margin-top: ">approve</button> 
+                                                  <button type="submit"  id="view" name="btnDeclineEvent" class="btn btn-success" style="margin-left:0px;background-color:#FF5733;font-size: 10px; margin-top: -49px; margin-left: 40px">decline</button> 
                                                    
                                                
                                                 
@@ -424,13 +412,12 @@
                                            
                                             <td> {{event.name}} </td>
                                             <td> {{event.etype}} </td>
-                                            <td> {{event.date_start}}</td>
-                                             <td> {{event.targetLocation}} </td>
-                                             
+                                             <td> {{event.description}} </td>
+                                             <td> {{event.date_start}} oten</td>
                                              
                                             {% endif %}
                                              {% endfor%}
-                                            
+                                            }
                                             {% endif %}
                                            
                                                
